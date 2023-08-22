@@ -5,6 +5,10 @@ async function all(onSuccess: (arg0: Page[]) => void, onError: (arg0: string) =>
 	get('/page', onSuccess, onError)
 }
 
+async function byId(id: string, onSuccess: (arg0: Page) => void, onError: (arg0: string) => void) {
+	get('/page/' + id, onSuccess, onError)
+}
+
 async function create(pageData: Page, onSuccess: (arg0: unknown) => void, onError: (arg0: string) => void) {
 	post(pageData, '/page', onSuccess, onError)
 }
@@ -21,7 +25,8 @@ const PageAPI = {
 	create,
 	update,
 	remove,
-	all
+	all,
+	byId
 }
 
 export default PageAPI

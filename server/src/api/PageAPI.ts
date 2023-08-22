@@ -13,6 +13,17 @@ export default function PageAPI(app: Application, BASEURL: string) {
         }
     })
 
+    // GET
+    app.get(BASEURL + '/:id',  async (req, res) => {
+        try {
+            const pageId = req.params.id
+            const page: IPage[] = await Page.findById(pageId)
+            res.json(page)
+        } catch (error) {
+            res.status(500).send('An error occurred' )
+        }
+    })
+
     // POST
     app.post(BASEURL + '/', async (req, res) => {
         try {
