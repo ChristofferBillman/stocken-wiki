@@ -1,0 +1,32 @@
+.btn {
+    display: flex;
+    padding: 0.5rem;
+    border: 1.5px solid rgba(0,0,0,0);
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    transition: 300ms;
+}
+.text {
+    margin: 0 0.5rem;
+}
+.darktext {
+    color: var(--black);
+}
+.lighttext {
+    color: var(--white);
+}
+.outline {
+    border: solid 1.5px;
+    border-color: var(--border);
+}
+.btn:hover {
+    box-sizing: border-box;
+    border: solid 1.5px;
+    border-color: rgba(0, 0, 0, 0.2);
+    transition: 50ms ease-in;
+}

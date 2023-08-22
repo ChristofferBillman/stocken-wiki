@@ -1,0 +1,16 @@
+.card {
+    border: solid 1.5px var(--border);
+    width: fit-content;
+    background: var(--white);
+    transition: 300ms;
+    border-radius: 24px;
+}
+
+.cardClickable {
+    cursor: pointer;
+}
+.cardClickable:hover {
+    border: solid 1.5px;
+    border-color: rgba(0, 0, 0, 0.15);
+    transition: 50ms ease-in;
+}

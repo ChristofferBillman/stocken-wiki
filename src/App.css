@@ -1,0 +1,42 @@
+* {
+    font-family: 'Inter';
+}
+:root {
+    --primary: #3B97D9;
+    --border: #E8E8E8;
+    --white: #FAFAFA;
+    --gray: #808080;
+    --cream: #f8f8f5;
+    --black: #313131;
+}
+body {
+    background: var(--cream);
+}
+h1 {
+    font-weight: 300;
+    font-size: 2rem;
+    color: var(--black);
+}
+h2 {
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: var(--black);
+}
+h3 {
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--black);
+}
+h4 {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--black);
+    margin: 0;
+}
+p{
+    color: var(--black);
+    line-height: 1.5rem;
+}
+a {
+    color: var(--primary);
+}
