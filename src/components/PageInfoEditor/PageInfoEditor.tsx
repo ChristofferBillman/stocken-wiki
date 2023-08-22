@@ -5,63 +5,29 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import { Plus } from '../../assets/Icons'
 
-import InfoSection, { InfoSectionField } from '../../types/InfoSection'
+import { PageInfoReducerAction, PageInfoReducerType } from './PageInfoReducer'
+
+import InfoSection, { InfoSectionStatistic } from '../../types/InfoSection'
 
 interface Props {
 	infoSection: InfoSection
-	setInfoSection: React.Dispatch<InfoSection>
+	dispatch: React.Dispatch<PageInfoReducerAction>
 }
 
-export function PageInfoEditor({ infoSection, setInfoSection }: Props) {
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setInfoSection({
-			...infoSection,
-			[e.target.name]: e.target.value
-		})
-		return e.target.value
-	}
+export function PageInfoEditor({ infoSection, dispatch }: Props) {
 
-	// Quite inefficient but should work.
-	const onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// Create copy of the array to make react understand that state has mutated,
-		// since objects are comapred by reference instead of by value in js.
-		const copy = [...infoSection.fields]
-		
-		// Find the element that has the same name as key of this input.
-		const index = copy.findIndex(entry => (
-			entry.key == e.target.name
-		))
-		
-		// Set new value of this input.
-		copy[index].value = e.target.value
-		
-		// Update state.
-		setInfoSection({
-			...infoSection,
-			fields: copy
-		})
-		return e.target.value
+	const onStatisticChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		dispatch({type: PageInfoReducerType.SET_STATISTIC, payload: e})
 	}
 
 	return (
 		<>
-			{/* Adapt the other values in InfoSection for use with StatisticEditor. */}
-			<StatisticEditor
-				field={{key: 'Title', value: infoSection.Title}}
-				setter={onChange}
-			/>
-
-			<StatisticEditor
-				field={{key: 'Description', value: infoSection.Description}}
-				setter={onChange}
-			/>
-
 			{/* Map through all fields and create inputs for them */}
-			{infoSection.fields?.map(field => (
+			{infoSection.data?.map(field => (
 				<StatisticEditor
 					key={field.key}
-					field={field}
-					setter={onFieldChange}
+					stat={field}
+					setter={onStatisticChange}
 				/>
 			))}
 			<Row style={{justifyContent: 'center', padding: 0}}>
@@ -72,15 +38,15 @@ export function PageInfoEditor({ infoSection, setInfoSection }: Props) {
 }
 
 interface StatisticProps {
-	field: InfoSectionField
-	setter: (arg0: React.ChangeEvent<HTMLInputElement>) => string
+	stat: InfoSectionStatistic
+	setter: (arg0: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-function StatisticEditor({ field, setter }: StatisticProps) {
+function StatisticEditor({ stat, setter }: StatisticProps) {
 	return (
 		<Row className={style.statisticEditorRow}>
-			<h4>{field.key}</h4>
-			<Input name={field.key} value={field.value} setValue={setter}/>
+			<h4>{stat.key}</h4>
+			<Input name={stat.key} value={stat.value} setValue={setter}/>
 		</Row>
 	)
 }

@@ -1,6 +1,6 @@
 import style from './PageContentSection.module.css'
 
-import InfoSection, { InfoSectionField } from '../../types/InfoSection'
+import InfoSection, { InfoSectionStatistic } from '../../types/InfoSection'
 import { Row } from '../common/Layout'
 
 interface Props {
@@ -10,25 +10,25 @@ interface Props {
 export function PageInfoSection({infoSection}: Props) {
 	return (
 		<div>
-			<h2>{infoSection.Title}</h2>
-			<p>{infoSection.Description}</p>
-
-			{infoSection.fields.map(field => <Statistic key={field.key} field={field}/> )}
+			{infoSection.data.map(stat => <Statistic key={stat.key} stat={stat}/> )}
 		</div>
 	)
 }
 
 interface StatisticProps {
-	field: InfoSectionField
+	stat: InfoSectionStatistic
 }
-function Statistic({field}: StatisticProps) {
+function Statistic({stat}: StatisticProps) {
+	if(stat.key == 'Title') return <h1>{stat.value}</h1>
+	if(stat.key == 'Description') return <h2>{stat.value}</h2>
+	
 	return (
 		<>
 			<Row
 				style={{width: '100%', justifyContent: 'space-between', padding: 0}}
 			>
-				<h4> {field.key} </h4>
-				<h4> {field.value} </h4>
+				<h4> {stat.key} </h4>
+				<h4> {stat.value} </h4>
 			</Row>
 			<div className={style.divider}></div>
 		</>

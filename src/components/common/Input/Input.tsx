@@ -5,7 +5,7 @@ interface Props {
     placeholder?: string
     style?: CSSProperties
 	value: string
-	setValue: (arg0: React.ChangeEvent<HTMLInputElement>) => string
+	setValue: (arg0: React.ChangeEvent<HTMLInputElement>) => void
 	name: string
 }
 

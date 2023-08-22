@@ -1,10 +1,12 @@
 export default interface InfoSection {
-    Title: string
-    Description: string
-    fields: InfoSectionField[]
+    meta: InfoSectionMetaData
+    data: InfoSectionStatistic[]
 }
 
-export interface InfoSectionField {
+export interface InfoSectionMetaData {
+    author: string
+}
+export interface InfoSectionStatistic {
     key: string
     value: string
 }

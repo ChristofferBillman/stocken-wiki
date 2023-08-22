@@ -13,10 +13,18 @@ import PageInfoSection from '../components/PageInfoSection'
 import Test from '../Test.md'
 import useStaticMarkdown from '../hooks/useStaticMarkdown'
 
-const infoSection = {
-	Title: 'hello',
-	Description: 'Some key statistic',
-	fields: [{
+const infoSection = {	
+	meta: {
+		author: 'Mee'
+	},
+	data: [{
+		key: 'Title',
+		value: 'Some title'
+	},{
+		key: 'Description',
+		value: 'Hello there!'
+	},
+	{
 		key: 'Capital',
 		value: 'Stocken'
 	},

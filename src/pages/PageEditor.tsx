@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useReducer } from 'react'
 
 // External Dependencies
 import { useNavigate, useParams } from 'react-router-dom'
@@ -11,15 +11,25 @@ import Button from '../components/common/Button'
 import PageContentEditor from '../components/PageContentEditor'
 import InfoSection from '../types/InfoSection'
 import PageInfoEditor from '../components/PageInfoEditor'
+import pageInfoReducer from '../components/PageInfoEditor/PageInfoReducer'
 
 // Imports related to debug-markdown
 import useStaticMarkdown from '../hooks/useStaticMarkdown'
 import Test from '../Test.md'
 
 const initialInfoSection: InfoSection = {
-	Title: 'hello',
-	Description: 'Some key statistic',
-	fields: [{
+	meta: {
+		author: 'mee'
+	},
+	data: [{
+		key: 'Title',
+		value: 'Stocken'
+	},
+	{
+		key: 'Description',
+		value: 'Stocken'
+	},
+	{
 		key: 'Capital',
 		value: 'Stocken'
 	},
@@ -43,7 +53,7 @@ export default function PageEditor() {
 	const [md, setMd] = useStaticMarkdown(Test)
 	const navigate = useNavigate()
 
-	const [infoSection, setInfoSection] = useState<InfoSection>(initialInfoSection)
+	const [infoSection, dispatch] = useReducer(pageInfoReducer, initialInfoSection)
 	
 	return (
 		<>
@@ -70,7 +80,7 @@ export default function PageEditor() {
 						<PageContentEditor value={md} setValue={setMd} />
 					</Column>
 					<Column>
-						<PageInfoEditor infoSection={infoSection} setInfoSection={setInfoSection} />
+						<PageInfoEditor infoSection={infoSection} dispatch={dispatch} />
 					</Column>
 				</Row>
 			</Card>
