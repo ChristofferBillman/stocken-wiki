@@ -6,10 +6,11 @@ interface Props {
     style?: CSSProperties
 	value: string
 	setValue: (arg0: React.ChangeEvent<HTMLInputElement>) => void
-	name: string
+	name: string,
+	onFocus?: () => void
 }
 
-export function Input({placeholder, value, setValue, name, style}: Props) {
+export function Input({placeholder, value, setValue, name, style, onFocus}: Props) {
 	return (
 		<input
 			style={style}
@@ -18,6 +19,7 @@ export function Input({placeholder, value, setValue, name, style}: Props) {
 			value={value}
 			name={name}
 			onChange={e => setValue(e)}
+			onFocus={onFocus}
 		/>
 	)
 }

@@ -7,6 +7,7 @@ import Token from './Token'
 import UserAPI from './api/UserAPI'
 import NoAuthAPI from './api/NoAuthAPI'
 import PageAPI from './api/PageAPI'
+import SearchAPI from './api/SearchAPI'
 
 GetDatabaseConnection()
 
@@ -21,7 +22,7 @@ app.use(cors({
         'http://wiki.stocken.okdev.se',
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "http://localhost:3000"
+        "http://127.0.0.1:3000" 
     ],
     credentials: true
 }))
@@ -41,4 +42,5 @@ app.use(Token.VerifyAndAddIdToReq)
 
 UserAPI(app, BASEURL + '/user')
 PageAPI(app, BASEURL + '/page')
+SearchAPI(app, BASEURL)
 

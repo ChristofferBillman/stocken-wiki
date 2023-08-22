@@ -1,6 +1,6 @@
 import mongoose, { connect } from 'mongoose'
 
-const CONNSTRING = 'mongodb://localhost:27017/stockenwiki'
+const CONNSTRING = 'mongodb://127.0.0.1:27017/stockenwiki'
 
 export default async function GetDatabaseConnection() {
     if (!mongoose.connection.readyState) {

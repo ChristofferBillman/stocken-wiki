@@ -6,11 +6,28 @@ import { Plus, Search, Person, Cogwheel } from '../../assets/Icons'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import { Filler, Row } from '../common/Layout'
+import SearchAPI from '../../network/SearchAPI'
+import Page from '../../pages/Page'
+import Toast from '../common/Toast'
+import useToast from '../../contexts/ToastContext'
+import SearchBar from '../SearchBar'
 
 export function Navbar() {
 
 	const [searchQuery, setSearchQuery] = useState('')
 	const navigate = useNavigate()
+
+	const toast = useToast()
+	
+	const search = (str: string) => {
+		let query = str.trim()
+		if (query.length > 0) {
+			SearchAPI.search(query, pages => {
+				console.log(pages)
+			}
+			, err => toast(err, 'error'));
+	}
+}
 
 	return (
 		<>
@@ -22,15 +39,8 @@ export function Navbar() {
 					wiki.stocken
 				</Link>
 
-				<Input 
-					placeholder='Search Everything'
-					style={{width: '400px'}}
-					value={searchQuery}
-					name='Search'
-					setValue={e => setSearchQuery(e.target.value)}
-				/>
-				
-				<Button outline icon={<Search color='var(--primary)'/>}/>
+				<SearchBar/>
+			
 				<Filler/>
 				<Button
 					text='New Page'
