@@ -43,7 +43,7 @@ const initalPage = {
 	content: '# Test',
 	infoSection: infoSection,
 	meta: {
-		history: [{user: 'Popkrull', time: 1692709017399 }]
+		history: [{user: 'JaneDoe', time: 1692709017399 }]
 	}
 }
 
@@ -55,12 +55,6 @@ export default function Page() {
 	const [page, setPage] = useState<IPage>(initalPage)
 
 	const navigate = useNavigate()
-
-	//const {data, loading, error}: FetchRequest<unknown> = useFetch<unknown>('fetch/that/will/fail/' + id)
-
-	//if(error) return <p>Something went wrong</p>
-
-	//if(loading) return <Spinner/>
 
 	const [modalVisible, setModalVisibility] = useState(false)
 
@@ -130,7 +124,7 @@ const getLastEditedTime = (lastEdit: number): string => {
 		return `about ${minutes} min ago`
 	}
 	if(hours < 24) {
-		return `about ${hours} hours ago}`
+		return `about ${hours} hours ago`
 	}
 	return date.getFullYear() +   '-' + date.getMonth() + '-' + date.getDate()
 }

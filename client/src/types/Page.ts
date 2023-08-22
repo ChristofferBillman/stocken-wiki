@@ -9,7 +9,7 @@ export interface Edit {
     time: number
 }
 export default interface IPage {
-    id: number
+    _id: string
     content: string
     infoSection: InfoSection
     meta: PageMetadata

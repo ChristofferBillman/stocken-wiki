@@ -1,0 +1,27 @@
+.modal {
+    width: fit-content;
+    max-width: 300px;
+    background: var(--white);
+    position: relative;
+    box-shadow: 2px 2px 300px rgba(0,0,0,0.5);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.backdrop {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,14 +1,22 @@
+import { useEffect, useState } from 'react'
 import PageCard from '../components/PageCard'
 import { Row } from '../components/common/Layout'
-
-const posts = [1,1,1,1,1,1,1,1,1,1]
+import Page from '../types/Page'
+import PageAPI from '../network/PageAPI'
 
 export default function Home() {
+
+	const [pages, setPages] = useState<Page[]>([])
+
+	useEffect(() => {
+		PageAPI.all(pages => setPages(pages), err => console.log(err))
+	},[])
+
 	return (
 		<>
-			<h1>Pinned</h1>
+			<h1>All pages</h1>
 			<Row style={{flexWrap: 'wrap', padding: 0}}>
-				{posts.map(() => <PageCard key={Math.random()} page={{title: 'Hello', description: 'Helloo there!', id: 1}}/>)}
+				{pages.map(page => <PageCard key={page._id} page={page}/>)}
 			</Row>
 		</>
 	)

@@ -1,5 +1,8 @@
 .input {
     outline: none;
+    display: flex;
+    flex-grow: 1;
+    max-height: 1.5rem;
     padding: 0.7rem;
     font-size: 0.9rem;
     border-radius: 12px;

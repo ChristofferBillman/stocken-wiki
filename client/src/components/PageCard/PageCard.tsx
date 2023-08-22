@@ -6,6 +6,7 @@ import Page from '../../types/Page'
 import Card from '../common/Card'
 import { Column } from '../common/Layout'
 import PlaceholderImg from '../../assets/img/placeholder.jpg'
+import { useMemo } from 'react'
 
 interface Props {
     page: Page
@@ -14,15 +15,28 @@ interface Props {
 export function PageCard({page}: Props) {
 
 	const navigate = useNavigate()
+
+	const {title, description} = useMemo(() => getTitleAndDescription(page), [page])
+
 	return (
-		<Card onClick={() => navigate('/page/' + page.id)}>
+		<Card onClick={() => navigate('/page/' + page._id)}>
 			<CardImage src={PlaceholderImg}/>
 			<Column style={{width: '300px'}}>
-				<h4>{page.title}</h4>
-				<p>{page.description}</p>
+				<h4>{title}</h4>
+				<p>{description}</p>
 			</Column>
 		</Card>
 	)
+}
+
+function getTitleAndDescription(page: Page): {title: string, description: string} {
+	const markdown = page.content
+
+	const lines = markdown.split(/\r?\n/)
+
+	const title = lines[0].replace('#','')
+	const description = lines[1]
+	return {title, description}
 }
 
 interface CardImageProps {
