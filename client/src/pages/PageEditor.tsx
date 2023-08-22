@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useReducer, useState } from 'react'
 
 // External Dependencies
 import { useNavigate, useParams } from 'react-router-dom'
@@ -16,11 +16,9 @@ import pageInfoReducer from '../components/PageInfoEditor/PageInfoReducer'
 // Imports related to debug-markdown
 import useStaticMarkdown from '../hooks/useStaticMarkdown'
 import Test from '../Test.md'
+import ConfirmationModal from '../components/common/ConfirmationModal'
 
 const initialInfoSection: InfoSection = {
-	meta: {
-		author: 'mee'
-	},
 	data: [{
 		key: 'Title',
 		value: 'Stocken'
@@ -54,18 +52,30 @@ export default function PageEditor() {
 	const navigate = useNavigate()
 
 	const [infoSection, dispatch] = useReducer(pageInfoReducer, initialInfoSection)
+	const [modalVisible, setModalVisibility] = useState(false)
+
+	const title =  md.split('\n')[0].replace('#','')
 	
 	return (
 		<>
-			<Row style={{ alignItems: 'center', width: '800px', margin: '0 auto'}}>
-				<h4 style={{color: 'var(--gray)'}}> EDITING </h4>
+			<ConfirmationModal
+				prompt='You have unsaved changes.'
+				text='Do you want to discard them?'
+				visible={modalVisible}
+				onCancel={() => setModalVisibility(false)}
+				onConfirm={() => navigate(-1)}
+				confirmText='Discard & Exit'
+			/>
+			
+			<Row style={{ alignItems: 'center', width: '886px', margin: '0 auto'}}>
+				<h4 style={{color: 'var(--gray)'}}> Editing: {title} </h4>
 				<Filler />
 				
 				<Button
 					outline
 					text='Discard & Exit'
 					icon={<Trash color='var(--black)'/>}
-					onClick={() => navigate(-1)}
+					onClick={() => setModalVisibility(true)}
 				/>
 				<Button
 					text='Save Changes'

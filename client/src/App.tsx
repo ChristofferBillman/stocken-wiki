@@ -11,6 +11,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Page from './pages/Page'
 import PageEditor from './pages/PageEditor'
+import PageCreator from './pages/PageCreator'
 
 export default function App() {
 	return (
@@ -20,6 +21,7 @@ export default function App() {
 				<Route path='/' element={<Home/>}/>
 				<Route path='/page/:id' element={<Page/>}/>
 				<Route path='/page/edit/:id' element={<PageEditor/>}/>
+				<Route path='/page/create' element={<PageCreator/>}/>
 			</Routes>
 		</BrowserRouter>
 	)

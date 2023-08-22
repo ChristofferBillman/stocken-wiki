@@ -8,16 +8,18 @@ interface Props {
   children: JSX.Element[] | JSX.Element
   style?: CSSProperties
   onClick?: () => void
+  className?: string,
+  forwardRef?: any
 }
 
-export function Card({children, onClick, style}: Props) {
+export function Card({children, onClick, style, className, forwardRef}: Props) {
 
 	// If card has onClick prop, it should respond as such for the user,
 	// i.e. having hover effects.
 	const clickableStyle = onClick ? CSSstyle.cardClickable : ''
 
 	return (
-		<div className={`${CSSstyle.card} ${clickableStyle}`} style={style} onClick={onClick}>
+		<div ref={forwardRef} className={`${CSSstyle.card} ${clickableStyle} ${className}`} style={style} onClick={onClick}>
 			{children}
 		</div>
 	)

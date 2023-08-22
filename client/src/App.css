@@ -8,6 +8,7 @@
     --gray: #808080;
     --cream: #f8f8f5;
     --black: #313131;
+    --red: #C43F3F;
 }
 body {
     background: var(--cream);
@@ -31,6 +32,12 @@ h4 {
     font-weight: 500;
     font-size: 1rem;
     color: var(--black);
+    margin: 0;
+}
+h5 {
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--gray);
     margin: 0;
 }
 p{

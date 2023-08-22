@@ -19,8 +19,9 @@ export function PageContentEditor({ value, setValue }: Props) {
 			className={CSSStyle.editor}
 			onChange={e => setValue(e.target?.value)}
 			ref={textAreaRef}
-			rows={1}
+			rows={2}
 			value={value}
+			placeholder='Click here and start typing to add content...'
 		/>
 	)
 }
