@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "prod:start": "cd dist && pm2 start index.js --name wiki",
+    "prod:stop": "pm2 stop wiki"
   },
   "author": "",
   "license": "ISC",
