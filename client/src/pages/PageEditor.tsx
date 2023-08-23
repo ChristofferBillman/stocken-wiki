@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 // Internal Dependencies
 import { Column, Filler, Row } from '../components/common/Layout'
-import { Cross, Floppy, Trash } from '../assets/Icons'
+import { Floppy, Trash } from '../assets/Icons'
 import Card from '../components/common/Card'
 import Button from '../components/common/Button'
 import PageContentEditor from '../components/PageContentEditor'
@@ -27,8 +27,6 @@ export default function PageEditor() {
 	const [refencePage, setRefencePage] = useState(initalPage)
 
 	const [modalVisible, setModalVisibility] = useState(false)
-
-	const [error, setError] = useState(false)
 
 	const navigate = useNavigate()
 	const toast = useToast()
@@ -62,8 +60,6 @@ export default function PageEditor() {
 	}
 
 	const title = page.content.split('\n')[0].replace('#','')
-	
-	if(error) return <h1>Something went wrong.</h1>
 
 	return (
 		<>

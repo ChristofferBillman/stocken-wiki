@@ -3,8 +3,8 @@ import Toast from '../components/common/Toast'
 
 export type ToastType = 'success' | 'error' | 'warn' | 'info'
 // Create context
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const toastContext = createContext((message: string, type: ToastType) => { })
+// eslint-disable-next-line 
+const toastContext = createContext((_message: string, _type: ToastType) => { })
 
 interface Props {
 	children: JSX.Element[] | JSX.Element

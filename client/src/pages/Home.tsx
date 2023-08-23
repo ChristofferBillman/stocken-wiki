@@ -31,11 +31,15 @@ export default function Home() {
 		}}>
 			<Column style={{padding: 0, flex: 1}}>
 				<h1>Recently Edited</h1>
-				{pages.map(page => <PageCard key={page._id} page={page}/>)}
+				<div>
+					{pages.map(page => <PageCard key={page._id} page={page}/>)}
+				</div>
 			</Column>
 			<Column style={{padding: 0, flex: 1}}>
 				<h1>New Pages</h1>
-				{pages.map(page => <PageCard key={page._id} page={page}/>)}
+				<div>
+					{pages.map(page => <PageCard key={page._id} page={page}/>)}
+				</div>
 			</Column>
 		</Row>
 	)
