@@ -2,15 +2,31 @@ import { useState } from 'react'
 
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
-import { Plus, Search, Person, Cogwheel } from '../../assets/Icons'
+import { Plus, Search, Person, Arrow } from '../../assets/Icons'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import { Filler, Row } from '../common/Layout'
+import useUser from '../../contexts/UserContext'
+import useToast from '../../contexts/ToastContext'
+import UserAPI from '../../network/UserAPI'
 
 export function Navbar() {
 
 	const [searchQuery, setSearchQuery] = useState('')
 	const navigate = useNavigate()
+	const { reset } = useUser()
+	const toast = useToast()
+
+	const handleSignout = () => {
+		UserAPI.logout(
+			() => {
+				reset()
+				navigate('/login')
+				toast('You have been signed out.', 'info')
+			},
+			err => toast(err, 'error')
+		)
+	}
 
 	return (
 		<>
@@ -39,7 +55,13 @@ export function Navbar() {
 					onClick={() => navigate('/page/create')}
 				/>
 				<Button outline icon={<Person color="var(--gray)"/>}/>
-				<Button outline icon={<Cogwheel color='var(--gray)'/>}/>
+				<Button
+					outline
+					text='Sign out'
+					textColor='var(--gray)'
+					icon={<Arrow color='var(--gray)'/>}
+					onClick={handleSignout}
+				/>
 			</Row>
 
 			<Outlet/>

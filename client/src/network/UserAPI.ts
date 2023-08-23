@@ -8,6 +8,9 @@ async function signup(name: string, password: string, onSuccess: (arg0: User) =>
 async function login(name: string, password: string, onSuccess: (arg0: User) => void, onError: (arg0: string) => void) {
 	post<User>({ name, password }, '/login', onSuccess, onError)
 }
+async function logout(onSuccess: (arg0: User) => void, onError: (arg0: string) => void) {
+	get<User>('/logout', onSuccess, onError)
+}
 async function byId(id: string, onSuccess: (arg0: User) => void, onError: (arg0: string) => void) {
 	get<User>('/user/'+ id, onSuccess, onError)
 }
@@ -15,6 +18,7 @@ async function byId(id: string, onSuccess: (arg0: User) => void, onError: (arg0:
 const UserAPI = {
 	signup,
 	login,
+	logout,
 	byId
 }
 export default UserAPI

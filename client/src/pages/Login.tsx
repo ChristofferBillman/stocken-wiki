@@ -7,15 +7,15 @@ import { Arrow, Plus } from '../assets/Icons'
 import { useNavigate } from 'react-router-dom'
 import UserAPI from '../network/UserAPI'
 import useUser from '../contexts/UserContext'
+import useToast from '../contexts/ToastContext'
 
 export default function Login() {
 
 	const [name, setName] = useState('')
 	const [password, setPassword] = useState('')
 
-	const [error, setError] = useState('')
-
 	const navigate = useNavigate()
+	const toast = useToast()
 
 	const { setUser } = useUser()
 
@@ -25,7 +25,7 @@ export default function Login() {
 				setUser(user)
 				navigate('/')
 			},
-			err => setError(err))
+			err => toast(err, 'error'))
 	}
 
 	return (
@@ -63,8 +63,6 @@ export default function Login() {
 						onClick={() => navigate('/signup')}
 					/>
 				</Row>
-
-				<p>{error}</p>
 			</Card>
 		</Row>
 	)

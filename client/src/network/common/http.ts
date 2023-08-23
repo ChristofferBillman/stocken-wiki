@@ -69,7 +69,7 @@ async function request<T>(
 		})
 		.catch(e => {
 			console.log(e)
-			onError('There was a problem connecting to the server.')
+			onError('There was a problem:' + e)
 		})
 }
 
@@ -95,13 +95,13 @@ async function internalGet<T>(
 			if (res.status >= 400) {
 				onError(await res.text())
 			}
-			if (res.status === 200) {
+			if (res.status >= 200 && res.status < 300) {
 				onSuccess(await res.json())
 			}
 		})
 		.catch(e => {
 			console.log(e)
-			onError('There was a problem connecting to the server.')
+			onError('There was a problem:' + e)
 		})
 }
 

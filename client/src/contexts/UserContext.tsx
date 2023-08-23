@@ -5,13 +5,16 @@ import useLocalStorage from '../hooks/useLocalStorage'
 interface UserContext {
 	user: User
 	setUser: Dispatch<SetStateAction<User | undefined>>
+	reset: () => void
 }
 
 // Create context
 const userContext = createContext<UserContext>({
 	user: {_id: 'NOID', name: 'no_name'},
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	setUser: () => {}
+	setUser: () => {},
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	reset: () => {}
 })
 
 interface Props {
@@ -22,8 +25,13 @@ export function UserContextProvider({children}: Props): JSX.Element {
 
 	const [user, setUser] = useLocalStorage('user','unset')
 
+	const reset = () => {
+		localStorage.removeItem('user')
+		document.cookie = 'token' + '=; Max-Age=-99999999;'
+	}
+
 	return (
-		<userContext.Provider value={{user, setUser}}>
+		<userContext.Provider value={{user, setUser, reset}}>
 			{children}
 		</userContext.Provider>
 	)
