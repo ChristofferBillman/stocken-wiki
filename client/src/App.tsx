@@ -25,13 +25,13 @@ export default function App() {
 				<ToastContextProvider>
 					<Routes>
 						<Route element={<Navbar/>}>
-							<Route index path='/' element={<Home/>}/>
+							<Route path='/' element={<Home/>}/>
 							<Route path='/page/:id' element={<Page/>}/>
 							<Route path='/page/edit/:id' element={<PageEditor/>}/>
 							<Route path='/page/create' element={<PageCreator/>}/>
 							<Route path='/page/history/:id' element={<PageHistory/>}/>
 						</Route>
-						<Route path='/login' element={<Login/>}/>
+						<Route index path='/login' element={<Login/>}/>
 						<Route path='/signup' element={<Signup/>}/>
 					</Routes>
 				</ToastContextProvider>
