@@ -14,69 +14,62 @@ import ConfirmationModal from '../components/common/ConfirmationModal'
 import IPage from '../types/Page'
 import PageAPI from '../network/PageAPI'
 import useToast from '../contexts/ToastContext'
-import Spinner from '../components/common/Spinner'
-
-const infoSection = {
-	data: [{
-		key: 'Title',
-		value: 'Some title'
-	}, {
-		key: 'Description',
-		value: 'Hello there!'
-	},
-	{
-		key: 'Capital',
-		value: 'Stocken'
-	},
-	{
-		key: 'Area',
-		value: '400 000 00 sq.m'
-	},
-	{
-		key: 'Religion',
-		value: 'Agnostic'
-	}]
-}
-
-const initalPage: IPage = {
-	_id: '1',
-	content: '# Test',
-	infoSection: infoSection,
-	meta: {
-		history: [{ user: 'JaneDoe', time: 1692709017399 }]
-	}
-}
+import UserAPI from '../network/UserAPI'
+import User from '../types/User'
+import { initalPage } from '../reducers/PageReducer'
 
 export default function Page() {
 
 	const { id } = useParams()
-
-	const [page, setPage] = useState<IPage>(initalPage)
 	const toast = useToast()
 
+	const [page, setPage] = useState<IPage>(initalPage)
+	const [lastEditor, setLastEditor] = useState<User>({ name: 'user_missing', _id: '0'})
 	const [loading, setLoading] = useState(true)
+	const [modalVisible, setModalVisibility] = useState(false)
+
+	const navigate = useNavigate()
 
 	useEffect(() => {
-		PageAPI.byId(id!,
+		PageAPI.byId(id,
 			async page => {
 				setPage(page)
-				setLoading(false)
-				toast('Loaded page!', 'success')
+				getLastEditor(page)
 			},
 			() => {
 				toast('Failed to load page', 'error')
 			})
 	}, [])
 
-	const navigate = useNavigate()
-
-	const [modalVisible, setModalVisibility] = useState(false)
-
-	const getLastEditor = () => {
+	const getLastEditor = (page: IPage) => {
+		console.log(page)
 		if (page.meta.history.length === 0) {
-			return 'user_missing'
+			setLoading(false)
+			return
 		}
-		return page.meta.history[page.meta.history.length - 1].user
+		const id = page.meta.history[page.meta.history.length - 1].userId
+		console.log(id)
+
+		UserAPI.byId(id,
+			user => {
+				setLastEditor(user)
+				setLoading(false)
+			},
+			err => {
+				setLoading(false)
+				toast(err, 'error')
+			})
+	}
+
+	const handleDelete = () => {
+		PageAPI.remove(id,
+			() => {
+				toast('Page deleted', 'success')
+				navigate(-1)
+			},
+			err => {
+				toast(err, 'error')
+			})
 	}
 
 	const getLastEditMillis = () => {
@@ -95,10 +88,10 @@ export default function Page() {
 				text='This is an irreversible action.'
 				visible={modalVisible}
 				onCancel={() => setModalVisibility(false)}
-				onConfirm={() => navigate(-1)}
+				onConfirm={handleDelete}
 			/>
 			<Row style={{ alignItems: 'center', width: '800px', margin: '0 auto' }}>
-				<h5> Last edited {getLastEditedTime(getLastEditMillis())} by {getLastEditor()} </h5>
+				<h5> Last edited {getLastEditedTime(getLastEditMillis())} by {lastEditor.name}</h5>
 				<Filler />
 				<Button
 					outline
