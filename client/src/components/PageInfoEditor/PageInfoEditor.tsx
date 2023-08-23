@@ -43,7 +43,7 @@ export function PageInfoEditor({ page, dispatch }: Props) {
 					outline
 					text={page.infoSection.data.length === 0 ? 'Add info box' : 'Add Field'}
 					icon={<Plus color='var(--black)'/>}
-					onClick={() => dispatch({type: PageReducerType.NEW_STATISTIC, payload: {key: 'New Field', value: ''}})}
+					onClick={() => dispatch({type: PageReducerType.NEW_STATISTIC, payload: {key: '', value: ''}})}
 				/>
 			</Row>
 			
@@ -73,8 +73,8 @@ interface StatisticProps {
 function StatisticEditor({ stat, setter, name, dispatch }: StatisticProps) {
 	return (
 		<Row className={style.statisticEditorRow}>
-			<Input name={name + '_K'} value={stat.key} setValue={setter} style={{width: '100px'}}/>
-			<Input name={name + '_V'} value={stat.value} setValue={setter} style={{width: '150px'}}/>
+			<Input name={name + '_K'} placeholder='Title' value={stat.key} setValue={setter} style={{width: '100px'}}/>
+			<Input name={name + '_V'} placeholder='Value' value={stat.value} setValue={setter} style={{width: '150px'}}/>
 			<Button 
 				outline
 				icon={<Trash color='var(--black)'/>}

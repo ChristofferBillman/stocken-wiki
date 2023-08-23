@@ -55,7 +55,7 @@ export default function PageEditor() {
 
 		PageAPI.update(id, pageWithEdit,
 			() => {
-				toast('Successfully edited page', 'success')
+				toast('Page edited', 'success')
 				navigate(-1)
 			},
 			err => toast(err, 'error'))
@@ -76,7 +76,7 @@ export default function PageEditor() {
 				confirmText='Discard & Exit'
 			/>
 			
-			<Row style={{ alignItems: 'center', width: '886px', margin: '0 auto'}}>
+			<Row style={{ alignItems: 'center', maxWidth: 'var(--page-max-width)', margin: '0 auto'}}>
 				<h4 style={{color: 'var(--gray)'}}> Editing: {title} </h4>
 				<Filler />
 				

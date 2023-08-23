@@ -23,7 +23,6 @@ export default function Login() {
 		UserAPI.login(name, password,
 			user => {
 				setUser(user)
-				console.log(user)
 				navigate('/')
 			},
 			err => setError(err))

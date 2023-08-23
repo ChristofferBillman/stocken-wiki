@@ -9,6 +9,7 @@
     --cream: #f8f8f5;
     --black: #313131;
     --red: #C43F3F;
+    --page-max-width: 886px;
 }
 body {
     background: var(--cream);

@@ -19,9 +19,12 @@ export function PageCard({page}: Props) {
 	const {title, description} = useMemo(() => getTitleAndDescription(page), [page])
 
 	return (
-		<Card onClick={() => navigate('/page/' + page._id)}>
+		<Card
+			style={{width: '100%', maxWidth: '600px'}}
+			onClick={() => navigate('/page/' + page._id)}
+		>
 			<CardImage src={PlaceholderImg}/>
-			<Column style={{width: '300px'}}>
+			<Column>
 				<h4>{title}</h4>
 				<p>{description}</p>
 			</Column>

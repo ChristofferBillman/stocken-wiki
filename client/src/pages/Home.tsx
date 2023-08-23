@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import PageCard from '../components/PageCard'
-import { Row } from '../components/common/Layout'
+import { Column, Row } from '../components/common/Layout'
 import Page from '../types/Page'
 import PageAPI from '../network/PageAPI'
 
@@ -21,11 +21,22 @@ export default function Home() {
 	)
 
 	return (
-		<>
-			<h1>All pages</h1>
-			<Row style={{flexWrap: 'wrap', padding: 0}}>
+		<Row style={{
+			maxWidth: 'var(--page-max-width)',
+			boxSizing: 'border-box',
+			padding: '2rem',
+			justifyContent: 'space-between',
+			gap: '2rem',
+			margin: '0 auto'
+		}}>
+			<Column style={{padding: 0, flex: 1}}>
+				<h1>Recently Edited</h1>
 				{pages.map(page => <PageCard key={page._id} page={page}/>)}
-			</Row>
-		</>
+			</Column>
+			<Column style={{padding: 0, flex: 1}}>
+				<h1>New Pages</h1>
+				{pages.map(page => <PageCard key={page._id} page={page}/>)}
+			</Column>
+		</Row>
 	)
 }

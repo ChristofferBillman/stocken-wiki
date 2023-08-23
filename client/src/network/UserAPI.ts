@@ -1,7 +1,7 @@
 import User from '../types/User'
 import { post, get } from './common/http'
 
-async function signup(name: string, password: string, onSuccess: (arg0: any) => void, onError: (arg0: string) => void) {
+async function signup(name: string, password: string, onSuccess: (arg0: User) => void, onError: (arg0: string) => void) {
 	post<User>({ name, password }, '/user', onSuccess, onError)
 }
 

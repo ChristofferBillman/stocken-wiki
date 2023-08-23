@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Input from '../components/common/Input'
 import Card from '../components/common/Card'
-import { Column, Row } from '../components/common/Layout'
+import { Row } from '../components/common/Layout'
 import Button from '../components/common/Button'
 import { Arrow, Plus } from '../assets/Icons'
 import UserAPI from '../network/UserAPI'
+import useUser from '../contexts/UserContext'
 
-export default function Login() {
+export default function Signup() {
 
 	const [name, setName] = useState('')
 	const [password, setPassword] = useState('')
@@ -15,9 +16,15 @@ export default function Login() {
 	const [error, setError] = useState('')
 
 	const navigate = useNavigate()
+	const {setUser} = useUser()
 
 	const onSubmit = () => {
-		UserAPI.signup(name,password, () => navigate('/'), err => setError(err) )
+		UserAPI.signup(name,password,
+			user => {
+				setUser(user)
+				navigate('/')
+			},
+			err => setError(err) )
 	}
 
 	return (

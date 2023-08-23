@@ -1,6 +1,7 @@
 .btn {
     display: flex;
     padding: 0.5rem;
+    min-height: 42px;
     border: 1.5px solid rgba(0,0,0,0);
     font-size: 1rem;
     font-weight: 500;

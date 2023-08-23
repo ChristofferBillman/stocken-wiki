@@ -42,9 +42,9 @@ export default function NoAuthAPI(app: Application, BASEURL: string) {
             return
         }
     
-        const user = await User.findOne({ name })
+        const existingUser = await User.findOne({ name })
     
-        if(user !== null) {
+        if(existingUser !== null) {
             res.status(409)
             res.send('Username is taken.')
             return
@@ -52,8 +52,10 @@ export default function NoAuthAPI(app: Application, BASEURL: string) {
         const hash = await PassHash.toHash(password)
     
         await new User({name, password: hash}).save()
-    
-        res.status(200)
-        res.send(JSON.stringify({message: 'Created User.'}))
+        
+        const { user, token } = await Token.Generate(name, password)
+
+        res.cookie('token', token)
+        res.status(201).json(user)
     })
 }

@@ -13,7 +13,7 @@ import PageInfoEditor from '../components/PageInfoEditor'
 import PageAPI from '../network/PageAPI'
 import useToast from '../contexts/ToastContext'
 import useUser from '../contexts/UserContext'
-import pageReducer, { PageReducerType, initalPage } from '../reducers/PageReducer'
+import pageReducer, { initalPage } from '../reducers/PageReducer'
 import { Edit } from '../types/Page'
 
 export default function PageCreator() {
@@ -42,7 +42,7 @@ export default function PageCreator() {
 	
 	return (
 		<>
-			<Row style={{ alignItems: 'center', width: '886px', margin: '0 auto'}}>
+			<Row style={{ alignItems: 'center', maxWidth: 'var(--page-max-width)', margin: '0 auto'}}>
 				<h4 style={{color: 'var(--gray)'}}> Creating: {title} </h4>
 				<Filler />
 				

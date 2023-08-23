@@ -98,9 +98,9 @@ export default function pageReducer(state: Page, action: PageReducerAction): Pag
 
 export const initalPage: Page = {
 	_id: '1',
-	content: '# Test',
+	content: '',
 	infoSection: { data: [] },
 	meta: {
-		history: [{ userId: 'JaneDoe', time: 1692709017399 }]
+		history: []
 	}
 }

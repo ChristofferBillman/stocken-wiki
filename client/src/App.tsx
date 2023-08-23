@@ -16,6 +16,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { UserContextProvider } from './contexts/UserContext'
 import { ToastContextProvider } from './contexts/ToastContext'
+import PageHistory from './pages/PageHistory'
 
 export default function App() {
 	return (
@@ -28,6 +29,7 @@ export default function App() {
 							<Route path='/page/:id' element={<Page/>}/>
 							<Route path='/page/edit/:id' element={<PageEditor/>}/>
 							<Route path='/page/create' element={<PageCreator/>}/>
+							<Route path='/page/history/:id' element={<PageHistory/>}/>
 						</Route>
 						<Route path='/login' element={<Login/>}/>
 						<Route path='/signup' element={<Signup/>}/>

@@ -17,6 +17,7 @@ import useToast from '../contexts/ToastContext'
 import UserAPI from '../network/UserAPI'
 import User from '../types/User'
 import { initalPage } from '../reducers/PageReducer'
+import { getTimeSince } from '../util/getLastEditedTime'
 
 export default function Page() {
 
@@ -91,7 +92,7 @@ export default function Page() {
 				onConfirm={handleDelete}
 			/>
 			<Row style={{ alignItems: 'center', width: '800px', margin: '0 auto' }}>
-				<h5> Last edited {getLastEditedTime(getLastEditMillis())} by {lastEditor.name}</h5>
+				<h5> Last edited {getTimeSince(getLastEditMillis())} by {lastEditor.name}</h5>
 				<Filler />
 				<Button
 					outline
@@ -105,7 +106,12 @@ export default function Page() {
 					icon={<Trash color='var(--black)' />}
 					onClick={() => setModalVisibility(true)}
 				/>
-				<Button outline text='History' icon={<History color='var(--black)' />} />
+				<Button
+					outline
+					text='History'
+					icon={<History color='var(--black)' />}
+					onClick={() => navigate('/page/history/' + id)}
+				/>
 			</Row>
 
 			<Card style={{ margin: '0 auto' }}>
@@ -128,26 +134,4 @@ function Skeleton(): JSX.Element {
 			<p></p>
 		</Card>
 	)
-}
-
-const getLastEditedTime = (lastEdit: number): string => {
-	const date = new Date(lastEdit)
-	const now = new Date()
-
-	const diffInMs = now.getTime() - date.getTime()
-
-	const seconds = Math.round(diffInMs / 1000)
-	const minutes = Math.round(diffInMs / (1000 * 60))
-	const hours = Math.round(diffInMs / (1000 * 60 * 60))
-
-	if (seconds < 60) {
-		return `${seconds} seconds ago`
-	}
-	if (minutes < 60) {
-		return `about ${minutes} min ago`
-	}
-	if (hours < 24) {
-		return `about ${hours} hours ago`
-	}
-	return date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
 }
