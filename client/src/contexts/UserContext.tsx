@@ -1,24 +1,17 @@
-import { useState, useContext, Dispatch, SetStateAction, createContext} from 'react'
-
-interface User {
-	id: string
-	username: string
-}
-
-const defaultUser: User = {
-	id: 'NOID',
-	username: 'JaneDoe'
-}
+import { useContext, Dispatch, SetStateAction, createContext} from 'react'
+import User from '../types/User'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 interface UserContext {
-	user: User | null
-	setUser: Dispatch<SetStateAction<User>>
+	user: User
+	setUser: Dispatch<SetStateAction<User | undefined>>
 }
 
 // Create context
 const userContext = createContext<UserContext>({
-	user: defaultUser,
-	setUser: (prevState: SetStateAction<User>) => prevState
+	user: {_id: 'NOID', name: 'no_name'},
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	setUser: () => {}
 })
 
 interface Props {
@@ -27,7 +20,7 @@ interface Props {
 // Setup and export provider
 export function UserContextProvider({children}: Props): JSX.Element {
 
-	const [user, setUser] = useState(defaultUser)
+	const [user, setUser] = useLocalStorage('user','unset')
 
 	return (
 		<userContext.Provider value={{user, setUser}}>
