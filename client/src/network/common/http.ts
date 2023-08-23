@@ -56,6 +56,10 @@ async function request<T>(
 		body: JSON.stringify(obj)
 	})
 		.then(async (res) => {
+			if(res.status == 401) {
+				window.location.href = '/login'
+				return
+			}
 			if (res.status >= 400) {
 				onError(await res.text())
 			}
@@ -84,6 +88,10 @@ async function internalGet<T>(
 		}
 	})
 		.then(async (res) => {
+			if(res.status == 401) {
+				window.location.href = '/login'
+				return
+			}
 			if (res.status >= 400) {
 				onError(await res.text())
 			}
@@ -96,3 +104,4 @@ async function internalGet<T>(
 			onError('There was a problem connecting to the server.')
 		})
 }
+
