@@ -1,4 +1,4 @@
 export default interface User {
-    name: string
-    password: string
+    _id: string
+	name: string
 }

@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react'
+import { useReducer } from 'react'
 
 // External Dependencies
 import { useNavigate } from 'react-router-dom'
@@ -9,37 +9,30 @@ import { Floppy, Trash } from '../assets/Icons'
 import Card from '../components/common/Card'
 import Button from '../components/common/Button'
 import PageContentEditor from '../components/PageContentEditor'
-import InfoSection from '../types/InfoSection'
 import PageInfoEditor from '../components/PageInfoEditor'
-import pageInfoReducer from '../components/PageInfoEditor/PageInfoReducer'
-import Page from '../types/Page'
 import PageAPI from '../network/PageAPI'
 import useToast from '../contexts/ToastContext'
-
-const initialInfoSection: InfoSection = {
-	data: []
-}
+import useUser from '../contexts/UserContext'
+import pageReducer, { PageReducerType, initalPage } from '../reducers/PageReducer'
+import { Edit } from '../types/Page'
 
 export default function PageCreator() {
 	const navigate = useNavigate()
 
-	const [infoSection, dispatch] = useReducer(pageInfoReducer, initialInfoSection)
-	const [markdown, setMarkdown] = useState('')
+	const [page, dispatch] = useReducer(pageReducer, initalPage)
 
 	const toast = useToast()
+	const {user} = useUser()
 
-	const title = markdown.split('\n')[0].replace('#','')
+	const title = page.content.split('\n')[0].replace('#','')
 
 	const onSubmit = () => {
-		const page: Page = {
-			_id: 'null',
-			content: markdown,
-			infoSection: infoSection,
-			meta: {
-				history: []
-			}
-		}
-		PageAPI.create(page,
+		const edit: Edit = {userId: user._id, time: Date.now()}
+		const history = [...page.meta.history, edit]
+		
+		const pageWithEdit = {...page, meta: { history }}
+		
+		PageAPI.create(pageWithEdit,
 			() => {
 				toast('Successfully added page', 'success')
 				navigate(-1)
@@ -70,10 +63,10 @@ export default function PageCreator() {
 			<Card style={{border: 'dashed 1.5px var(--gray)', margin: '0 auto'}}>
 				<Row>
 					<Column style={{ width: '400px'}}>
-						<PageContentEditor value={markdown} setValue={setMarkdown} />
+						<PageContentEditor page={page} dispatch={dispatch} />
 					</Column>
 					<Column>
-						<PageInfoEditor infoSection={infoSection} dispatch={dispatch} />
+						<PageInfoEditor page={page} dispatch={dispatch} />
 					</Column>
 				</Row>
 			</Card>

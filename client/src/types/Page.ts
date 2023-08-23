@@ -5,11 +5,11 @@ export interface PageMetadata {
 }
 
 export interface Edit {
-    user: string
+    userId: string
     time: number
 }
 export default interface IPage {
-    _id: string
+    _id?: string
     content: string
     infoSection: InfoSection
     meta: PageMetadata

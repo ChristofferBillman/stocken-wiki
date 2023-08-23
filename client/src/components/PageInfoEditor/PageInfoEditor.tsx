@@ -5,19 +5,20 @@ import Input from '../common/Input'
 import Button from '../common/Button'
 import { Plus, Trash } from '../../assets/Icons'
 
-import { PageInfoReducerAction, PageInfoReducerType } from './PageInfoReducer'
+import {PageReducerAction, PageReducerType} from '../../reducers/PageReducer'
 
-import InfoSection, { InfoSectionStatistic } from '../../types/InfoSection'
+import { InfoSectionStatistic } from '../../types/InfoSection'
+import Page from '../../types/Page'
 
 interface Props {
-	infoSection: InfoSection
-	dispatch: React.Dispatch<PageInfoReducerAction>
+	page: Page
+	dispatch: React.Dispatch<PageReducerAction>
 }
 
-export function PageInfoEditor({ infoSection, dispatch }: Props) {
+export function PageInfoEditor({ page, dispatch }: Props) {
 
 	const onStatisticChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({type: PageInfoReducerType.SET_STATISTIC, payload: e})
+		dispatch({type: PageReducerType.SET_STATISTIC, payload: e})
 	}
 
 	return (
@@ -27,7 +28,7 @@ export function PageInfoEditor({ infoSection, dispatch }: Props) {
 				A bit of a hacky fix to use index as key, but since
 				the keys of the actual state is dynamic, it will change.
 			 */}
-			{infoSection.data?.map((stat, index) => (
+			{page.infoSection.data?.map((stat, index) => (
 				<StatisticEditor
 					key={index}
 					name={index}
@@ -40,13 +41,13 @@ export function PageInfoEditor({ infoSection, dispatch }: Props) {
 			<Row style={{justifyContent: 'center', padding: 0}}>
 				<Button
 					outline
-					text={infoSection.data.length === 0 ? 'Add info box' : 'Add Field'}
+					text={page.infoSection.data.length === 0 ? 'Add info box' : 'Add Field'}
 					icon={<Plus color='var(--black)'/>}
-					onClick={() => dispatch({type: PageInfoReducerType.NEW_STATISTIC, payload: {key: 'test', value: ''}})}
+					onClick={() => dispatch({type: PageReducerType.NEW_STATISTIC, payload: {key: 'New Field', value: ''}})}
 				/>
 			</Row>
 			
-			{infoSection.data.length === 0 && <EmptyState/>}
+			{page.infoSection.data.length === 0 && <EmptyState/>}
 		</>
 	)
 }
@@ -66,7 +67,7 @@ interface StatisticProps {
 	stat: InfoSectionStatistic
 	setter: (arg0: React.ChangeEvent<HTMLInputElement>) => void
 	name: number
-	dispatch: React.Dispatch<PageInfoReducerAction>
+	dispatch: React.Dispatch<PageReducerAction>
 }
 
 function StatisticEditor({ stat, setter, name, dispatch }: StatisticProps) {
@@ -77,7 +78,7 @@ function StatisticEditor({ stat, setter, name, dispatch }: StatisticProps) {
 			<Button 
 				outline
 				icon={<Trash color='var(--black)'/>}
-				onClick={() => dispatch({type: PageInfoReducerType.DELETE_STATISTIC, payload: stat})}
+				onClick={() => dispatch({type: PageReducerType.DELETE_STATISTIC, payload: stat})}
 			/>
 		</Row>
 	)

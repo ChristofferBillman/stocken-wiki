@@ -1,61 +1,70 @@
-import { useReducer, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 
 // External Dependencies
 import { useNavigate, useParams } from 'react-router-dom'
 
 // Internal Dependencies
 import { Column, Filler, Row } from '../components/common/Layout'
-import { Floppy, Trash } from '../assets/Icons'
+import { Cross, Floppy, Trash } from '../assets/Icons'
 import Card from '../components/common/Card'
 import Button from '../components/common/Button'
 import PageContentEditor from '../components/PageContentEditor'
-import InfoSection from '../types/InfoSection'
 import PageInfoEditor from '../components/PageInfoEditor'
-import pageInfoReducer from '../components/PageInfoEditor/PageInfoReducer'
 
-// Imports related to debug-markdown
-import useStaticMarkdown from '../hooks/useStaticMarkdown'
-import Test from '../Test.md'
 import ConfirmationModal from '../components/common/ConfirmationModal'
-
-const initialInfoSection: InfoSection = {
-	data: [{
-		key: 'Title',
-		value: 'Stocken'
-	},
-	{
-		key: 'Description',
-		value: 'Stocken'
-	},
-	{
-		key: 'Capital',
-		value: 'Stocken'
-	},
-	{
-		key: 'Area',
-		value: '400 000 00 sq.m'
-	},
-	{
-		key: 'Religion',
-		value: 'Agnostic'
-	}]
-}
+import PageAPI from '../network/PageAPI'
+import useToast from '../contexts/ToastContext'
+import useUser from '../contexts/UserContext'
+import pageReducer, { PageReducerType, initalPage } from '../reducers/PageReducer'
+import Page, { Edit } from '../types/Page'
 
 export default function PageEditor() {
 	const { id } = useParams()
+	const {user} = useUser()
 
-	// This is a bit broken since this state is mutated in PageInfoEditor.
-	// It persists even if you have pressed Discard & Exit.
-	// This is only even temporary, so its fine for now until it's
-	// replaced with real logic.
-	const [md, setMd] = useStaticMarkdown(Test)
-	const navigate = useNavigate()
+	// TODO: Consider making these one state with one reducer.
+	const [page, dispatch] = useReducer(pageReducer, initalPage)
+	const [refencePage, setRefencePage] = useState(initalPage)
 
-	const [infoSection, dispatch] = useReducer(pageInfoReducer, initialInfoSection)
 	const [modalVisible, setModalVisibility] = useState(false)
 
-	const title =  md.split('\n')[0].replace('#','')
+	const [error, setError] = useState(false)
+
+	const navigate = useNavigate()
+	const toast = useToast()
+
+	useEffect(() => {
+		PageAPI.byId(id,
+			page => {
+				setRefencePage(page)
+				dispatch({type: PageReducerType.SET_STATE, payload: page})
+			},
+			err => toast(err, 'error'))
+	},[])
+
+	const onSubmit = () => {
+		if(!user || !id) {
+			toast('Something went wrong when submitting edits.', 'error')
+			return
+		}
+
+		const edit: Edit = {userId: user._id, time: Date.now()}
+		const history = [...page.meta.history, edit]
+		
+		const pageWithEdit = {...page, meta: { history }}
+
+		PageAPI.update(id, pageWithEdit,
+			() => {
+				toast('Successfully edited page', 'success')
+				navigate(-1)
+			},
+			err => toast(err, 'error'))
+	}
+
+	const title = page.content.split('\n')[0].replace('#','')
 	
+	if(error) return <h1>Something went wrong.</h1>
+
 	return (
 		<>
 			<ConfirmationModal
@@ -71,29 +80,46 @@ export default function PageEditor() {
 				<h4 style={{color: 'var(--gray)'}}> Editing: {title} </h4>
 				<Filler />
 				
-				<Button
-					outline
-					text='Discard & Exit'
-					icon={<Trash color='var(--black)'/>}
-					onClick={() => setModalVisibility(true)}
-				/>
+				{!hasChanged(refencePage, page) ? 
+					<Button
+						outline
+						text='Discard Changes'
+						icon={<Trash color='var(--black)'/>}
+						onClick={() => setModalVisibility(true)}
+					/>
+					:
+					<Button
+						outline
+						text='Cancel'
+						onClick={() => navigate(-1)}
+					/>
+				}
 				<Button
 					text='Save Changes'
 					icon={<Floppy color='var(--white)' />}
 					color='var(--primary)'
+					onClick={onSubmit}
 				/>
 			</Row>
 
 			<Card style={{border: 'dashed 1.5px var(--gray)', margin: '0 auto'}}>
 				<Row>
 					<Column style={{ width: '400px'}}>
-						<PageContentEditor value={md} setValue={setMd} />
+						<PageContentEditor page={page} dispatch={dispatch} />
 					</Column>
 					<Column>
-						<PageInfoEditor infoSection={infoSection} dispatch={dispatch} />
+						<PageInfoEditor page={page} dispatch={dispatch} />
 					</Column>
 				</Row>
 			</Card>
 		</>
 	)
+}
+
+// Might be laggy in the future when pages get really long.
+// This runs every time a user types in an input.
+// We'll see...
+function hasChanged(reference: Page, changed: Page) {
+	return reference.content === changed.content &&
+		JSON.stringify(reference.infoSection) == JSON.stringify(changed.infoSection)
 }
