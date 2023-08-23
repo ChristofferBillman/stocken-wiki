@@ -7,10 +7,18 @@ import PageAPI from '../network/PageAPI'
 export default function Home() {
 
 	const [pages, setPages] = useState<Page[]>([])
+	const [error, setError] = useState('')
 
 	useEffect(() => {
-		PageAPI.all(pages => setPages(pages), err => console.log(err))
+		PageAPI.all(pages => setPages(pages), err => setError(err))
 	},[])
+
+	if(error != '') return (
+		<>
+			<h1>An error occured:</h1>
+			<h5>{error}</h5>
+		</>
+	)
 
 	return (
 		<>

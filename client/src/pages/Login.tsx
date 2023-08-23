@@ -6,6 +6,7 @@ import Button from '../components/common/Button'
 import { Arrow, Plus } from '../assets/Icons'
 import { useNavigate } from 'react-router-dom'
 import UserAPI from '../network/UserAPI'
+import useUser from '../contexts/UserContext'
 
 export default function Login() {
 
@@ -16,8 +17,16 @@ export default function Login() {
 
 	const navigate = useNavigate()
 
+	const { setUser } = useUser()
+
 	const onSubmit = () => {
-		UserAPI.login(name, password, () => navigate('/'), err => setError(err))
+		UserAPI.login(name, password,
+			user => {
+				setUser(user)
+				console.log(user)
+				navigate('/')
+			},
+			err => setError(err))
 	}
 
 	return (
