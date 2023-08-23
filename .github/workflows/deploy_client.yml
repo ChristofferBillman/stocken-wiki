@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Change to public API in .env file
         working-directory: ./client
-        run: echo VITE_WIKI_BACKEND_URL=https://api.christofferbillman.se >> .env
+        run: echo VITE_WIKI_BACKEND_URL=https://api.christofferbillman.se/api >> .env
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
