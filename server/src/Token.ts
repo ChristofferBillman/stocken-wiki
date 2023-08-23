@@ -54,7 +54,7 @@ export default class Token {
      * @param guid The GUID of the player to generate a token for.
      * @returns A token or Nothing.
      */
-    static async Generate(name: string, cleartextPassword: string): Promise<string | null> {
+    static async Generate(name: string, cleartextPassword: string): Promise<{user: IUser, token: string} | null> {
 
         // Find a player by name, CASE INSENSITIVE.
         const user: IUser = await User.findOne({ name: { $regex: new RegExp('^' + name + '$', 'i') } })
@@ -72,6 +72,6 @@ export default class Token {
         }
 
         const hash: string = user.password
-        return user._id + Token.DELIMITER + hash
+        return {user, token: user._id + Token.DELIMITER + hash}
     }
 }

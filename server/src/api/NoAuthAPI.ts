@@ -17,15 +17,18 @@ export default function NoAuthAPI(app: Application, BASEURL: string) {
         }
     
         // Token.Generate authenticates the user.
-        const token: string | null = await Token.Generate(name, password)
+        const {user, token} = await Token.Generate(name, password)
     
         if (token == null) {
             res.status(401)
             res.send('Incorrect credentials.')
             return
         }
+
+        user.password = undefined
+        
         res.cookie('token', token)
-        res.send(JSON.stringify({message: 'Successful login.'}))
+        res.status(200).json(user)
     })
 
     // POST (Signup)
