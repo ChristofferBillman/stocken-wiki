@@ -14,6 +14,7 @@ import PageEditor from './pages/PageEditor'
 import PageCreator from './pages/PageCreator'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import HistoricalPage from './pages/HistoricalPage.tsx'
 import { UserContextProvider } from './contexts/UserContext'
 import { ToastContextProvider } from './contexts/ToastContext'
 import PageHistory from './pages/PageHistory'
@@ -29,7 +30,8 @@ export default function App() {
 							<Route path='/page/:id' element={<Page/>}/>
 							<Route path='/page/edit/:id' element={<PageEditor/>}/>
 							<Route path='/page/create' element={<PageCreator/>}/>
-							<Route path='/page/history/:id' element={<PageHistory/>}/>
+							<Route path="/page/history/:id" element={<PageHistory />} />
+							<Route path="/page/history/:id/:version" element={<HistoricalPage />} />
 						</Route>
 						<Route index path='/login' element={<Login/>}/>
 						<Route path='/signup' element={<Signup/>}/>

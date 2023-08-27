@@ -7,22 +7,32 @@ export default function UserAPI(app: Application, BASEURL: string) {
     // GET
     // Gets the logged in user.
     app.get(BASEURL + '/', async (req, res) => {
-        let user: IUser = await User.findById(req.userId)
-    
-        user.password = undefined
-    
-        res.status(200).json(user)
+        try{
+            let user: IUser = await User.findById(req.userId)
+
+            user.password = undefined
+
+            res.status(200).json(user)
+        }
+        catch(err) {
+            res.status(500).send('An error occured')
+        }
     })
 
     // GET
     // Gets a user by its id
     app.get(BASEURL + '/:id', async (req, res) => {
-        let id = req.params.id
-        let user: IUser = await User.findById(id)
-        
-        user.password = undefined
-    
-        res.status(200).json(user)
+        try {
+            let id = req.params.id
+            let user: IUser = await User.findById(id)
+
+            user.password = undefined
+
+            res.status(200).json(user)
+        }
+        catch(err) {
+            res.status(500).send('An error occured')
+        }
     })
 
     // POST 

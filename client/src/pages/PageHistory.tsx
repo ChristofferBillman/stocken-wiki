@@ -1,56 +1,63 @@
 // External dependencies
-import { useParams } from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 // Internal dependencies
-import { Column, Row } from '../components/common/Layout'
+import {Column, Filler, Row} from '../components/common/Layout'
 import Card from '../components/common/Card'
 
 import { useEffect, useState } from 'react'
-import IPage, { Edit } from '../types/Page'
-import PageAPI from '../network/PageAPI'
 import useToast from '../contexts/ToastContext'
-import { initalPage } from '../reducers/PageReducer'
 import UserAPI from '../network/UserAPI'
 import { getTimeSince } from '../util/getLastEditedTime'
+import PageHistoryAPI from '../network/PageHistoryAPI.ts'
+import PageRecord, { initialPageRecord } from '../types/PageRecord.ts'
+import Button from '../components/common/Button'
+import { History } from '../assets/Icons'
 
 export default function PageHistory() {
 
 	const { id } = useParams()
 	const toast = useToast()
+	const navigate = useNavigate()
 
-	const [page, setPage] = useState<IPage>(initalPage)
+	const [history, setHistory] = useState([initialPageRecord])
 	const [loading, setLoading] = useState(true)
 
-	console.log(page)
-
 	useEffect(() => {
-		PageAPI.byId(id,
-			async page => {
-				setPage(page)
+		PageHistoryAPI.history(id,
+			async history => {
+				setHistory(history)
+				console.log(history)
 				setLoading(false)
 			},
 			() => {
-				toast('Failed to load page', 'error')
+				toast('Failed to load page history', 'error')
 			})
 	}, [])
 
-	const title = page.content.split('\n')[0].replace('#','')
-
 	if (loading) return <Skeleton />
+
+	if(history.length == 0) return <p>This page has no history yet.</p>
+
+	const title = history[history.length - 1].page.content.split('\n')[0].replace('#','')
 
 	return (
 		<>
 			<Row style={{ alignItems: 'center', maxWidth: 'var(--page-max-width)', margin: '0 auto' }}>
-				<h5> Changes to {title} </h5>
+				<h5> Version History of {title} </h5>
+				<Filler />
+
+				<Button
+					outline
+					text='Back to Page'
+					onClick={() => navigate('/page/' + id)}
+				/>
 			</Row>
 
 			<Card style={{ margin: '0 auto' }}>
 				<Row>
-					<Column style={{ width: '400px' }}>
-						{page.meta.history.map((edit: Edit) => <EditListItem key={edit.time} edit={edit}/>)}
-					</Column>
-					<Column style={{ width: '300px', alignItems: 'center' }}>
-						<h5>Empty Currently!</h5>
+					<Column style={{ width: 'var(--page-max-width' }}>
+						{history.map((record: PageRecord) => <PageRecordListItem key={record.time} record={record}/>)}
 					</Column>
 				</Row>
 			</Card>
@@ -58,14 +65,15 @@ export default function PageHistory() {
 	)
 }
 interface EditListItemProps {
-	edit: Edit
+	record: PageRecord
 }
-function EditListItem({edit}: EditListItemProps): JSX.Element {
+function PageRecordListItem({record}: EditListItemProps): JSX.Element {
 
 	const [user, setUser] = useState('')
+	const navigate = useNavigate()
 
 	useEffect(() => {
-		UserAPI.byId(edit.userId,
+		UserAPI.byId(record.author,
 			user => setUser(user.name),
 			() => setUser('Not Found'))
 	})
@@ -73,7 +81,13 @@ function EditListItem({edit}: EditListItemProps): JSX.Element {
 	return (
 		<Row style={{alignItems: 'center', padding: 0}}>
 			<h4>{user}</h4>
-			<p>{getTimeSince(edit.time)}</p>
+			<p>{getTimeSince(record.time)}</p>
+			<Button
+				text='View this version'
+				outline
+				icon={<History color={'var(--black)'}/>}
+				onClick={() => navigate('/page/history/' + record.page._id + '/' + record.versionNumber)}
+			/>
 		</Row>
 	)
 }

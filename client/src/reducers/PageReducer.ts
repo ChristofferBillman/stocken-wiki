@@ -13,7 +13,6 @@ export enum PageReducerType {
 	SET_STATISTIC,
 	NEW_STATISTIC,
 	DELETE_STATISTIC,
-	LOG_EDIT,
 	REORDER_STATISTIC
 }
 
@@ -80,15 +79,6 @@ export default function pageReducer(state: Page, action: PageReducerAction): Pag
 	case PageReducerType.SET_STATE: {
 		return payload
 	}
-	case PageReducerType.LOG_EDIT: {
-
-		const history = [...state.meta.history, payload]
-
-		return {
-			...state,
-			meta: { history }
-		}
-	}
 	case PageReducerType.SET_CONTENT: {
 		return {
 			...state,
@@ -122,7 +112,5 @@ export const initalPage: Page = {
 	_id: '1',
 	content: '',
 	infoSection: { data: [] },
-	meta: {
-		history: []
-	}
+	authors: []
 }

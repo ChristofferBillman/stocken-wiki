@@ -1,5 +1,8 @@
 import { Request, Response, Application } from 'express'
 import Page, { IPage } from '../models/Page'
+import PageRecord, { IPageRecord } from "../models/PageRecord";
+import User from "../models/User";
+import mongoose from "mongoose";
 
 export default function PageAPI(app: Application, BASEURL: string) {
 
@@ -27,15 +30,21 @@ export default function PageAPI(app: Application, BASEURL: string) {
     // POST
     app.post(BASEURL + '/', async (req, res) => {
         try {
-            const { content, infoSection, meta } = req.body
+            const { content, infoSection, authors } = req.body
+            console.log(authors)
+            addAuthorIfNotPresent(req.userId, authors)
+
             const newPage: IPage = new Page({
                 content,
                 infoSection,
-                meta
+                authors
             })
+
+            console.log('hi')
             const createdPage: IPage = await newPage.save()
             res.status(201).json(createdPage)
         } catch (error) {
+            console.log(error)
             res.status(500).send('An error occurred')
         }
     })
@@ -44,11 +53,13 @@ export default function PageAPI(app: Application, BASEURL: string) {
     app.put(BASEURL + '/:id', async (req, res) => {
         try {
             const pageId = req.params.id
-            const { content, infoSection, meta } = req.body
+            const { content, infoSection, authors } = req.body
+
+            addAuthorIfNotPresent(req.userId, authors)
 
             const updatedPage: IPage | null = await Page.findByIdAndUpdate(
                 pageId,
-                { content, infoSection, meta },
+                { content, infoSection, authors },
                 { new: true }
             )
 
@@ -56,8 +67,18 @@ export default function PageAPI(app: Application, BASEURL: string) {
                 return res.status(404).send('Page not found')
             }
 
+            const numberOfRecords = await PageRecord.count({'page._id': new mongoose.Types.ObjectId(pageId)})
+
+            await new PageRecord({
+                page: updatedPage,
+                versionNumber: numberOfRecords,
+                time: Date.now(),
+                author: req.userId
+            }).save()
+
             res.json(updatedPage)
         } catch (error) {
+            console.log(error)
             res.status(500).send('An error occurred')
         }
     })
@@ -78,4 +99,10 @@ export default function PageAPI(app: Application, BASEURL: string) {
             res.status(500).send('Something went wrong when deleting post.')
         }
     })
+}
+
+function addAuthorIfNotPresent(userId, authors: any) {
+    if(!authors.includes(userId)) {
+        authors.push(userId)
+    }
 }

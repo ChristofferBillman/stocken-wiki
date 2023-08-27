@@ -12,9 +12,7 @@ import PageContentEditor from '../components/PageContentEditor'
 import PageInfoEditor from '../components/PageInfoEditor'
 import PageAPI from '../network/PageAPI'
 import useToast from '../contexts/ToastContext'
-import useUser from '../contexts/UserContext'
 import pageReducer, { initalPage } from '../reducers/PageReducer'
-import { Edit } from '../types/Page'
 
 export default function PageCreator() {
 	const navigate = useNavigate()
@@ -22,17 +20,11 @@ export default function PageCreator() {
 	const [page, dispatch] = useReducer(pageReducer, initalPage)
 
 	const toast = useToast()
-	const {user} = useUser()
 
 	const title = page.content.split('\n')[0].replace('#','')
 
 	const onSubmit = () => {
-		const edit: Edit = {userId: user._id, time: Date.now()}
-		const history = [...page.meta.history, edit]
-		
-		const pageWithEdit = {...page, meta: { history }}
-		
-		PageAPI.create(pageWithEdit,
+		PageAPI.create(page,
 			() => {
 				toast('Successfully added page', 'success')
 				navigate(-1)

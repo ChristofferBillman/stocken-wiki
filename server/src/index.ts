@@ -8,6 +8,7 @@ import UserAPI from './api/UserAPI'
 import NoAuthAPI from './api/NoAuthAPI'
 import PageAPI from './api/PageAPI'
 import SearchAPI from './api/SearchAPI'
+import PageHistoryAPI from './api/PageHistoryAPI'
 
 GetDatabaseConnection()
 
@@ -42,5 +43,6 @@ app.use(Token.VerifyAndAddIdToReq)
 
 UserAPI(app, BASEURL + '/user')
 PageAPI(app, BASEURL + '/page')
+PageHistoryAPI(app, BASEURL + '/page/history')
 SearchAPI(app, BASEURL)
 

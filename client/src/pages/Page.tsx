@@ -44,11 +44,11 @@ export default function Page() {
 
 	const getLastEditor = (page: IPage) => {
 		console.log(page)
-		if (page.meta.history.length === 0) {
+		if (page.authors.length === 0) {
 			setLoading(false)
 			return
 		}
-		const id = page.meta.history[page.meta.history.length - 1].userId
+		const id = page.authors[page.authors.length - 1]
 		console.log(id)
 
 		UserAPI.byId(id,
@@ -74,10 +74,7 @@ export default function Page() {
 	}
 
 	const getLastEditMillis = () => {
-		if (page.meta.history.length === 0) {
-			return 0
-		}
-		return page.meta.history[page.meta.history.length - 1].time
+		return 0
 	}
 
 	if (loading) return <Skeleton />

@@ -16,7 +16,7 @@ import PageAPI from '../network/PageAPI'
 import useToast from '../contexts/ToastContext'
 import useUser from '../contexts/UserContext'
 import pageReducer, { PageReducerType, initalPage } from '../reducers/PageReducer'
-import Page, { Edit } from '../types/Page'
+import Page from '../types/Page'
 
 export default function PageEditor() {
 	const { id } = useParams()
@@ -45,14 +45,7 @@ export default function PageEditor() {
 			return
 		}
 
-
-
-		const edit: Edit = {userId: user._id, time: Date.now()}
-		const history = [...page.meta.history, edit]
-		
-		const pageWithEdit = {...page, meta: { history }}
-
-		PageAPI.update(id, pageWithEdit,
+		PageAPI.update(id, page,
 			() => {
 				toast('Page edited', 'success')
 				navigate(-1)
