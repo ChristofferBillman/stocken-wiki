@@ -18,6 +18,7 @@ h1 {
     font-weight: 300;
     font-size: 2rem;
     color: var(--black);
+    margin: 0.5rem 0 0 0;
 }
 h2 {
     font-weight: 300;

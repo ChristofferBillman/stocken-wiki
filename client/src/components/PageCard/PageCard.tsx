@@ -23,7 +23,7 @@ export function PageCard({page}: Props) {
 			style={{width: '100%', maxWidth: '600px'}}
 			onClick={() => navigate('/page/' + page._id)}
 		>
-			<CardImage src={PlaceholderImg}/>
+			<CardImage src={getImage(page)}/>
 			<Column>
 				<h4>{title}</h4>
 				<p>{description}</p>
@@ -40,6 +40,15 @@ function getTitleAndDescription(page: Page): {title: string, description: string
 	const title = lines[0].replace('#','')
 	const description = lines[1]
 	return {title, description}
+}
+
+function getImage(page: Page): string {
+	const img = page.infoSection.data.find(stat => stat.type == 'image')?.value
+
+	if(img == undefined) {
+		return PlaceholderImg
+	}
+	return img
 }
 
 interface CardImageProps {
