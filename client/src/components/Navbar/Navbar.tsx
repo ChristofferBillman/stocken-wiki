@@ -4,9 +4,11 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { Plus, Search, Person, Arrow } from '../../assets/Icons'
 import Button from '../common/Button'
-import Input from '../common/Input'
 import { Filler, Row } from '../common/Layout'
 import useUser from '../../contexts/UserContext'
+import UserAPI from '../../network/UserAPI'
+import SearchAPI from '../../network/SearchAPI'
+
 import useToast from '../../contexts/ToastContext'
 import UserAPI from '../../network/UserAPI'
 
@@ -28,6 +30,16 @@ export function Navbar() {
 		)
 	}
 
+	const search = (str: string) => {
+		const query = str.trim()
+		if (query.length > 0) {
+			SearchAPI.search(query, pages => {
+				console.log(pages)
+			}
+			, err => toast(err, 'error'));
+		}
+	}
+
 	return (
 		<>
 			<Row style={{alignItems: 'center'}}>
@@ -38,15 +50,8 @@ export function Navbar() {
 					wiki.stocken
 				</Link>
 
-				<Input 
-					placeholder='Search Everything'
-					style={{width: '400px'}}
-					value={searchQuery}
-					name='Search'
-					setValue={e => setSearchQuery(e.target.value)}
-				/>
-				
-				<Button outline icon={<Search color='var(--primary)'/>}/>
+				<SearchBar/>
+
 				<Filler/>
 				<Button
 					text='New Page'

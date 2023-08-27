@@ -56,5 +56,5 @@ interface CardImageProps {
 }
 
 function CardImage({src}: CardImageProps) {
-	return <img className={CSSStyle.image} src={src}/>
+	return <img alt='img' className={CSSStyle.image} src={src}/>
 }

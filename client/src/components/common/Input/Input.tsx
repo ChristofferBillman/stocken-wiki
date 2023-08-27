@@ -12,7 +12,7 @@ interface Props {
 	tabIndex?: number
 }
 
-export function Input({placeholder, value, setValue, name, style, onFocus, onBlur, tabIndex}: Props) {
+export function Input({placeholder, value, setValue, name, style, onFocus, onBlur}: Props) {
 	return (
 		<input
 			onFocus={onFocus}
@@ -23,7 +23,6 @@ export function Input({placeholder, value, setValue, name, style, onFocus, onBlu
 			value={value}
 			name={name}
 			onChange={e => setValue(e)}
-			tabIndex={tabIndex}
 		/>
 	)
 }

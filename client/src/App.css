@@ -48,6 +48,7 @@ p{
 }
 a {
     color: var(--primary);
+    text-decoration: none;
 }
 
 .fillAvailable {
