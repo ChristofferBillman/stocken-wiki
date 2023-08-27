@@ -13,6 +13,6 @@ const useAutosizeTextArea = (
 			textAreaRef.style.height = scrollHeight + 'px'
 		}
 	}, [textAreaRef, value])
-};
+}
 
 export default useAutosizeTextArea

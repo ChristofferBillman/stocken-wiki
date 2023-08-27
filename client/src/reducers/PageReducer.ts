@@ -2,6 +2,7 @@ import Page from '../types/Page'
 
 export interface PageReducerAction {
 	type: PageReducerType,
+	// eslint-disable-next-line
 	payload: any
 }
 
