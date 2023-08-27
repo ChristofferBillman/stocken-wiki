@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { Plus, Person, Arrow } from '../../assets/Icons'
@@ -35,7 +33,7 @@ export function Navbar() {
 			SearchAPI.search(query, pages => {
 				console.log(pages)
 			}
-			, err => toast(err, 'error'));
+			, err => toast(err, 'error'))
 		}
 	}
 
