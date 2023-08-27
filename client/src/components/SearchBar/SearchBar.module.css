@@ -18,7 +18,7 @@
     margin-top: 50px;
     border-radius: 12px;
     z-index: 100;
-    overflow: hidden    ;
+    overflow: hidden;
 }
 
 #searchContainer{
@@ -26,10 +26,14 @@
     width: 500px;
 }
 
-#searchResult{
-
-}
-
 #searchResult:hover{
     background-color: rgb(240, 240, 240);
+}
+
+.descriptionText {
+    margin: 0;
+    color: var(--gray);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
