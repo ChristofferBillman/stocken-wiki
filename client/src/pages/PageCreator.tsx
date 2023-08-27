@@ -37,7 +37,7 @@ export default function PageCreator() {
 				toast('Successfully added page', 'success')
 				navigate(-1)
 			},
-			err => toast(err, 'error'))
+			() => toast('Cannot submit empty page.', 'error'))
 	}
 	
 	return (

@@ -7,6 +7,7 @@ import Button from '../components/common/Button'
 import { Arrow } from '../assets/Icons'
 import UserAPI from '../network/UserAPI'
 import useUser from '../contexts/UserContext'
+import useToast from '../contexts/ToastContext.tsx'
 
 export default function Signup() {
 
@@ -14,6 +15,7 @@ export default function Signup() {
 	const [password, setPassword] = useState('')
 
 	const navigate = useNavigate()
+	const toast = useToast()
 	const {setUser} = useUser()
 
 	const onSubmit = () => {
@@ -22,7 +24,7 @@ export default function Signup() {
 				setUser(user)
 				navigate('/')
 			},
-			err => console.log(err) )
+			err => toast(err, 'error') )
 	}
 
 	return (

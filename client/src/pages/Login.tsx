@@ -29,7 +29,7 @@ export default function Login() {
 	}
 
 	return (
-		<Row style={{ alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+		<Row className='fillAvailable' style={{ alignItems: 'center', justifyContent: 'center'}}>
 			<Card style={{ width: '300px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 				<div>
 					<h1 style={{ margin: 0 }}>stocken.wiki</h1>

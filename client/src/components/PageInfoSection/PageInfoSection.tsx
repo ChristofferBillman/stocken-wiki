@@ -1,7 +1,7 @@
 import style from './PageContentSection.module.css'
 
 import InfoSection, { InfoSectionStatistic } from '../../types/InfoSection'
-import { Row } from '../common/Layout'
+import {Column, Row} from '../common/Layout'
 
 interface Props {
 	infoSection: InfoSection
@@ -21,7 +21,17 @@ interface StatisticProps {
 function Statistic({stat}: StatisticProps) {
 	if(stat.key == 'Title') return <h1>{stat.value}</h1>
 	if(stat.key == 'Description') return <h2>{stat.value}</h2>
-	
+
+	if(stat.type == 'image') return (
+		<>
+			<Column style={{padding: '0'}}>
+				<h4> {stat.key} </h4>
+				<img src={stat.value} alt='img'/>
+			</Column>
+			<div className={style.divider}></div>
+		</>
+	)
+
 	return (
 		<>
 			<Row

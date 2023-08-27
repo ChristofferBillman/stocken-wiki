@@ -48,3 +48,10 @@ p{
 a {
     color: var(--primary);
 }
+
+.fillAvailable {
+    height: 100%;
+    height: -webkit-fill-available;
+    height: -moz-available;
+    height: fill-available;
+}

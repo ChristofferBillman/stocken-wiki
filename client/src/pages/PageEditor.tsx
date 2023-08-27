@@ -22,7 +22,6 @@ export default function PageEditor() {
 	const { id } = useParams()
 	const {user} = useUser()
 
-	// TODO: Consider making these one state with one reducer.
 	const [page, dispatch] = useReducer(pageReducer, initalPage)
 	const [refencePage, setRefencePage] = useState(initalPage)
 
@@ -45,6 +44,8 @@ export default function PageEditor() {
 			toast('Something went wrong when submitting edits.', 'error')
 			return
 		}
+
+
 
 		const edit: Edit = {userId: user._id, time: Date.now()}
 		const history = [...page.meta.history, edit]
@@ -104,7 +105,7 @@ export default function PageEditor() {
 						<PageContentEditor page={page} dispatch={dispatch} />
 					</Column>
 					<Column>
-						<PageInfoEditor page={page} dispatch={dispatch} />
+						<PageInfoEditor page={page} dispatch={dispatch}/>
 					</Column>
 				</Row>
 			</Card>

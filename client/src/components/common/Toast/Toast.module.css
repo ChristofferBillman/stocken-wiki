@@ -12,17 +12,17 @@
 }
 
 .success {
-    background: #EAFFE7;
+    background: #EAFFE7 !important;
 }
 
 .error {
-    background: #FFDEDE
+    background: #FFDEDE !important;
 }
 
 .warn {
-    background: #ffc34c;
+    background: #fff4de !important;
 }
 
 .info {
-    background: var(--white);
+    background: var(--white) !important;
 }

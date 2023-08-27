@@ -10,9 +10,10 @@ import { Arrow } from './Arrow'
 import { Cross } from './Cross'
 import { Info } from './Info'
 import { Check } from './Check'
+import { Reorder} from './Reorder'
 
 export {
 	Plus, Search, Person, Cogwheel, Trash,
 	Pencil, History, Floppy, Arrow, Cross,
-	Info, Check
+	Info, Check, Reorder
 }

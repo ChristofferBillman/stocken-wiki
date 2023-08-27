@@ -12,7 +12,8 @@ export enum PageReducerType {
 	SET_STATISTIC,
 	NEW_STATISTIC,
 	DELETE_STATISTIC,
-	LOG_EDIT
+	LOG_EDIT,
+	REORDER_STATISTIC
 }
 
 export default function pageReducer(state: Page, action: PageReducerAction): Page {
@@ -51,7 +52,7 @@ export default function pageReducer(state: Page, action: PageReducerAction): Pag
 	case PageReducerType.NEW_STATISTIC: {
 		const infoSection = [...state.infoSection.data]
 
-		infoSection.push({ key: payload.key, value: '' })
+		infoSection.push({ key: payload.key, value: '', type: payload.type, id: Math.random().toString()})
 
 		return {
 			...state,
@@ -91,6 +92,26 @@ export default function pageReducer(state: Page, action: PageReducerAction): Pag
 		return {
 			...state,
 			content: payload
+		}
+	}
+	case PageReducerType.REORDER_STATISTIC: {
+		if (!payload.destination) {
+			return state
+		}
+
+		if (payload.destination.index === payload.source.index) {
+			return state
+		}
+
+		const copy = [...state.infoSection.data]
+		const [removed] = copy.splice(payload.source.index, 1)
+		copy.splice(payload.destination.index, 0, removed)
+
+		return {
+			...state,
+			infoSection: {
+				data: copy
+			}
 		}
 	}
 	}
