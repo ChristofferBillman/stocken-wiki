@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 // Internal dependencies
 import { Column, Filler, Row } from '../components/common/Layout'
-import { History } from '../assets/Icons'
+import { History, Restore } from '../assets/Icons'
 import Button from '../components/common/Button'
 import Card from '../components/common/Card'
 import PageContentSection from '../components/PageContentSection'
@@ -61,7 +61,7 @@ export default function HistoricalPage() {
 	}
 
 	const handleRestore = () => {
-		console.warn('nyi')
+		toast('This feature is not yet implemented.', 'warn')
 	}
 
 	if (loading) return <Skeleton />
@@ -75,7 +75,7 @@ export default function HistoricalPage() {
 				<Button
 					outline
 					text='Restore this version'
-					icon={<History color='var(--black)' />}
+					icon={<Restore color='var(--black)' />}
 					onClick={handleRestore}
 				/>
 				<Button
