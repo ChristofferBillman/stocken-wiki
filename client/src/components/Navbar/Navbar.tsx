@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
-import { Plus, Search, Person, Arrow } from '../../assets/Icons'
+import { Plus, Person, Arrow } from '../../assets/Icons'
 import Button from '../common/Button'
 import { Filler, Row } from '../common/Layout'
 import useUser from '../../contexts/UserContext'
@@ -10,11 +10,10 @@ import UserAPI from '../../network/UserAPI'
 import SearchAPI from '../../network/SearchAPI'
 
 import useToast from '../../contexts/ToastContext'
-import UserAPI from '../../network/UserAPI'
+import SearchBar from '../SearchBar'
 
 export function Navbar() {
 
-	const [searchQuery, setSearchQuery] = useState('')
 	const navigate = useNavigate()
 	const { reset } = useUser()
 	const toast = useToast()
