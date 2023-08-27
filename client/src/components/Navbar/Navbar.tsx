@@ -5,7 +5,6 @@ import Button from '../common/Button'
 import { Filler, Row } from '../common/Layout'
 import useUser from '../../contexts/UserContext'
 import UserAPI from '../../network/UserAPI'
-import SearchAPI from '../../network/SearchAPI'
 
 import useToast from '../../contexts/ToastContext'
 import SearchBar from '../SearchBar'
@@ -25,16 +24,6 @@ export function Navbar() {
 			},
 			err => toast(err, 'error')
 		)
-	}
-
-	const search = (str: string) => {
-		const query = str.trim()
-		if (query.length > 0) {
-			SearchAPI.search(query, pages => {
-				console.log(pages)
-			}
-			, err => toast(err, 'error'))
-		}
 	}
 
 	return (

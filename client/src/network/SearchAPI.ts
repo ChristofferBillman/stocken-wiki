@@ -1,4 +1,4 @@
-import { post, put, del, get } from './common/http'
+import { get } from './common/http'
 import Page from '../types/Page'
 
 async function search(query: string, onSuccess: (arg0: Page[]) => void, onError: (arg0: string) => void) {
