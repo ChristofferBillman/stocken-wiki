@@ -7,7 +7,7 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "prod:start": "set PORT=443 cd dist&&set NODE_ENV=production&&pm2 start index.js --name wiki",
+    "prod:start": "cd dist&&set PORT=443&&set NODE_ENV=production&&pm2 start index.js --name wiki",
     "prod:stop": "pm2 stop wiki"
   },
   "author": "",
