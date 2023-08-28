@@ -20,7 +20,7 @@ export function PageCard({page}: Props) {
 
 	return (
 		<Card
-			style={{width: '100%', maxWidth: '600px'}}
+			style={{width: '400px', maxWidth: '600px'}}
 			onClick={() => navigate('/page/' + page._id)}
 		>
 			<CardImage src={getImage(page)}/>

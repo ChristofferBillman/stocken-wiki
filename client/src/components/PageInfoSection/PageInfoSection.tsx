@@ -35,7 +35,7 @@ function Statistic({stat}: StatisticProps) {
 	return (
 		<>
 			<Row
-				style={{width: '100%', justifyContent: 'space-between', padding: 0}}
+				style={{ justifyContent: 'space-between', padding: 0}}
 			>
 				<h4> {stat.key} </h4>
 				<h4> {stat.value} </h4>

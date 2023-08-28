@@ -55,8 +55,8 @@ export default function PageHistory() {
 			</Row>
 
 			<Card style={{ margin: '0 auto' }}>
-				<Row>
-					<Column style={{ width: 'var(--page-max-width' }}>
+				<Row style={{ width: 'var(--page-max-width', boxSizing: 'border-box' }}>
+					<Column style={{ padding: 0 }}>
 						{history.map((record: PageRecord) => <PageRecordListItem key={record.time} record={record}/>)}
 					</Column>
 				</Row>
@@ -81,7 +81,7 @@ function PageRecordListItem({record}: EditListItemProps): JSX.Element {
 	return (
 		<Row style={{alignItems: 'center', padding: 0}}>
 			<h4>{user}</h4>
-			<p>{getTimeSince(record.time)}</p>
+			<p style={{margin: 0}}>{getTimeSince(record.time)}</p>
 			<Button
 				text='View this version'
 				outline

@@ -66,7 +66,7 @@ export default function PageEditor() {
 				confirmText='Discard & Exit'
 			/>
 			
-			<Row style={{ alignItems: 'center', maxWidth: 'var(--page-max-width)', margin: '0 auto'}}>
+			<Row style={{ alignItems: 'center', width: '1000px', margin: '0 auto'}}>
 				<h4 style={{color: 'var(--gray)'}}> Editing: {title} </h4>
 				<Filler />
 				
@@ -92,12 +92,12 @@ export default function PageEditor() {
 				/>
 			</Row>
 
-			<Card style={{border: 'dashed 1.5px var(--gray)', margin: '0 auto'}}>
+			<Card style={{border: 'dashed 1.5px var(--gray)', margin: '0 auto', width: '1000px'}}>
 				<Row>
-					<Column style={{ width: '400px'}}>
+					<Column style={{ width: '60%'}}>
 						<PageContentEditor page={page} dispatch={dispatch} />
 					</Column>
-					<Column>
+					<Column style={{ width: '40%'}}>
 						<PageInfoEditor page={page} dispatch={dispatch}/>
 					</Column>
 				</Row>

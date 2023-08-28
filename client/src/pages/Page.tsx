@@ -72,11 +72,7 @@ export default function Page() {
 				toast(err, 'error')
 			})
 	}
-
-	const getLastEditMillis = () => {
-		return 0
-	}
-
+	
 	if (loading) return <Skeleton />
 
 	return (
@@ -88,8 +84,8 @@ export default function Page() {
 				onCancel={() => setModalVisibility(false)}
 				onConfirm={handleDelete}
 			/>
-			<Row style={{ alignItems: 'center', width: '800px', margin: '0 auto' }}>
-				<h5> Last edited {getTimeSince(getLastEditMillis())} by {lastEditor.name}</h5>
+			<Row style={{ alignItems: 'center', maxWidth: 'var(--page-max-width)', margin: '0 auto' }}>
+				<h5> Last edited by {lastEditor.name}</h5>
 				<Filler />
 				<Button
 					outline
@@ -111,12 +107,12 @@ export default function Page() {
 				/>
 			</Row>
 
-			<Card style={{ margin: '0 auto' }}>
+			<Card style={{ margin: '0 auto', maxWidth: 'var(--page-max-width)' }}>
 				<Row>
-					<Column style={{ width: '400px' }}>
+					<Column style={{ width: '60%' }}>
 						<PageContentSection markdown={page.content} />
 					</Column>
-					<Column style={{ width: '300px' }}>
+					<Column style={{ width: '40%'}}>
 						<PageInfoSection infoSection={page.infoSection} />
 					</Column>
 				</Row>
