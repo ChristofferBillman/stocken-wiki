@@ -17,7 +17,6 @@ import useToast from '../contexts/ToastContext'
 import UserAPI from '../network/UserAPI'
 import User from '../types/User'
 import { initalPage } from '../reducers/PageReducer'
-import { getTimeSince } from '../util/getLastEditedTime'
 
 export default function Page() {
 

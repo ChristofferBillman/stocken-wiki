@@ -2,7 +2,7 @@
 import './App.css'
 
 // React Router
-import { Routes, Route, BrowserRouter, HashRouter } from 'react-router-dom'
+import { Routes, Route, HashRouter } from 'react-router-dom'
 
 // Components
 import Navbar from './components/Navbar'
