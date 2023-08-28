@@ -7,7 +7,7 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "prod:start": "cd dist && pm2 start index.js --name wiki",
+    "prod:start": "set PORT=443 cd dist&&set NODE_ENV=production&&pm2 start index.js --name wiki",
     "prod:stop": "pm2 stop wiki"
   },
   "author": "",
@@ -16,12 +16,15 @@
     "@types/mongoose": "^5.11.97",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.18.2",
+    "greenlock-express": "^4.0.3",
     "mongodb": "^5.1.0",
-    "mongoose": "^7.0.3",
-    "crypto": "^1.0.1"
+    "mongoose": "^7.0.3"
   },
   "devDependencies": {
+    "@types/greenlock-express": "^4.0.0",
+    "@types/node": "^20.5.4",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1"
   }
