@@ -17,7 +17,7 @@ jobs:
         username: popkr
         password: ${{ secrets.SSH_KEY }}
         script: |
-          cd ~/stocken-wiki/server
+          cd stocken-wiki/server
           git pull
           npm ci
           npm run build
