@@ -2,7 +2,7 @@
 import './App.css'
 
 // React Router
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route, BrowserRouter, HashRouter } from 'react-router-dom'
 
 // Components
 import Navbar from './components/Navbar'
@@ -21,7 +21,7 @@ import PageHistory from './pages/PageHistory'
 
 export default function App() {
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<UserContextProvider>
 				<ToastContextProvider>
 					<Routes>
@@ -38,6 +38,6 @@ export default function App() {
 					</Routes>
 				</ToastContextProvider>
 			</UserContextProvider>
-		</BrowserRouter>
+		</HashRouter>
 	)
 }
