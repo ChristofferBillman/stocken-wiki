@@ -11,6 +11,7 @@ import {Search} from '../../assets/Icons'
 import {Row} from '../common/Layout'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import {SearchResult} from './SearchResult'
+import { useNavigate } from 'react-router-dom'
 
 export function SearchBar() {
 
@@ -22,6 +23,7 @@ export function SearchBar() {
 	const visibilityStyle = (searchResults.length > 0 && searchIsFocused) ? 'visible' : 'hidden'
 
 	const toast = useToast()
+	const navigate = useNavigate()
 
 	const ref = useRef(null)
 	useOutsideClick(ref, () => {
@@ -65,10 +67,17 @@ export function SearchBar() {
 						{searchResults.length} Results
 					</p>
 					{searchResults.map(page => (
-						<SearchResult
+						<div
+							onClick={() => {
+								navigate(`/page/${page._id}`)
+								setSearchIsFocused(false)
+							}}
 							key={page._id}
-							page={page}
-						/>)
+						>
+							<SearchResult
+								page={page}
+							/>
+						</div>)
 					)}
 				</div>
 
