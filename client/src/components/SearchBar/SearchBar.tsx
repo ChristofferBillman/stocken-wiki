@@ -6,8 +6,6 @@ import useToast from '../../contexts/ToastContext'
 import Page from '../../types/Page'
 
 import style from './SearchBar.module.css'
-import Button from '../common/Button'
-import {Search} from '../../assets/Icons'
 import {Row} from '../common/Layout'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import {SearchResult} from './SearchResult'
@@ -57,7 +55,6 @@ export function SearchBar() {
 						search(e.target.value)
 					}}
 				/>
-				<Button outline icon={<Search color='var(--primary)'/>}/>
 
 				<div id={style.searchResults} style={{visibility: visibilityStyle}}>
 					<p
