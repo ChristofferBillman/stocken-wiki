@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import PageContentLink from './PageContentLink'
 
 interface Props {
 	markdown: string
@@ -6,7 +7,7 @@ interface Props {
 
 export function PageContentSection({markdown}: Props) {
 	return (
-		<ReactMarkdown>
+		<ReactMarkdown components={{a: PageContentLink}}>
 			{markdown}
 		</ReactMarkdown>
 	)

@@ -39,7 +39,7 @@ export default function Page() {
 			() => {
 				toast('Failed to load page', 'error')
 			})
-	}, [])
+	}, [id])
 
 	const getLastEditor = (page: IPage) => {
 		console.log(page)
