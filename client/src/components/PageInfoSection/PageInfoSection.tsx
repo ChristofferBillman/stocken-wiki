@@ -20,7 +20,7 @@ interface StatisticProps {
 }
 function Statistic({stat}: StatisticProps) {
 	if(stat.key == 'Title') return <h1>{stat.value}</h1>
-	if(stat.key == 'Description') return <h2>{stat.value}</h2>
+	if(stat.key == 'Description') return <h2 style={{marginBottom: '1rem'}}>{stat.value}</h2>
 
 	if(stat.type == 'image') return (
 		<>
