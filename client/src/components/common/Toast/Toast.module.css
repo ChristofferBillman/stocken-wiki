@@ -1,6 +1,6 @@
 .toast {
    padding: 0.5rem 1rem 0.5rem 1rem;
-   position: absolute;
+   position: fixed;
    align-items: center;
    display: flex;
    gap: 0.5rem;
