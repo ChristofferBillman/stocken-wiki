@@ -11,3 +11,7 @@
 .defaultPadding {
     padding: 1rem;
 }
+.loading {
+    border-radius: 10px;
+    height: 100vh;
+}

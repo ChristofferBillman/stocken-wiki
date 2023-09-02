@@ -71,8 +71,6 @@ export default function Page() {
 				toast(err, 'error')
 			})
 	}
-	
-	if (loading) return <Skeleton />
 
 	return (
 		<>
@@ -91,39 +89,34 @@ export default function Page() {
 					text='Edit'
 					onClick={() => navigate('/page/edit/' + id)}
 					icon={<Pencil color='var(--black)' />}
+					loading={loading}
 				/>
 				<Button
 					outline
 					text='Delete'
 					icon={<Trash color='var(--black)' />}
 					onClick={() => setModalVisibility(true)}
+					loading={loading}
 				/>
 				<Button
 					outline
 					text='History'
 					icon={<History color='var(--black)' />}
 					onClick={() => navigate('/page/history/' + id)}
+					loading={loading}
 				/>
 			</Row>
 
-			<Card style={{ margin: '0 auto', maxWidth: 'var(--page-max-width)' }}>
-				<Row>
-					<Column style={{ width: '60%' }}>
+			<Card style={{ margin: '0 auto', width: 'var(--page-max-width)', minHeight: '100vh' }}>
+				<Row style={{height: '100%'}}>
+					<Column style={{ width: '60%' }} loading={loading}>
 						<PageContentSection markdown={page.content} />
 					</Column>
-					<Column style={{ width: '40%'}}>
+					<Column style={{ width: '40%'}} loading={loading}>
 						<PageInfoSection infoSection={page.infoSection} />
 					</Column>
 				</Row>
 			</Card>
 		</>
-	)
-}
-
-function Skeleton(): JSX.Element {
-	return (
-		<Card style={{ margin: '0 auto', width: '812px', height: '300px', marginTop: '75px' }}>
-			<p></p>
-		</Card>
 	)
 }

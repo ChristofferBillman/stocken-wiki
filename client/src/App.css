@@ -61,3 +61,16 @@ a {
     height: -moz-available;
     height: fill-available;
 }
+
+.loader {
+  animation: loading-animation 500ms linear infinite alternate;
+}
+
+@keyframes loading-animation {
+  0% {
+    background-color:  var(--white);
+  }
+  100% {
+    background-color: var(--border);
+  }
+}

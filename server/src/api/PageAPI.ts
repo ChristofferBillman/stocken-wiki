@@ -19,6 +19,7 @@ export default function PageAPI(app: Application, BASEURL: string) {
     // GET
     app.get(BASEURL + '/:id',  async (req, res) => {
         try {
+           // await new Promise((resolve) => setTimeout(() => resolve(2), 5000));
             const pageId = req.params.id
             const page: IPage[] = await Page.findById(pageId)
             res.json(page)
