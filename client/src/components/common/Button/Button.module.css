@@ -8,9 +8,9 @@
     border-radius: 12px;
     cursor: pointer;
     width: fit-content;
-    display: flex;
     align-items: center;
-    transition: 300ms;
+    transition-duration: 300ms;
+    transition-property: border-color;
 }
 .text {
     margin: 0 0.5rem;

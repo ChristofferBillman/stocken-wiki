@@ -17,8 +17,8 @@ export function Button({ icon, text, textColor, color = 'var(--white)', outline 
 	const textColorStyle = color == 'var(--white)' ? style.darktext : style.lighttext
 
 	if(loading) return (
-		<button className={`${style.btn} loader`}>
-			<span className={`${style.text}`} style={{color: 'rgba(0,0,0,0)', paddingLeft: '24px'}}>
+		<button className={`${style.btn} loader`} style={{zIndex: -1}}>
+			<span className={`${style.text}`} style={{opacity: 0, paddingLeft: '24px'}}>
 				{text}
 			</span>
 		</button>

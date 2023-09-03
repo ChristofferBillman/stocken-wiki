@@ -17,6 +17,7 @@ import useToast from '../contexts/ToastContext'
 import UserAPI from '../network/UserAPI'
 import User from '../types/User'
 import { initalPage } from '../reducers/PageReducer'
+import P from '../components/common/P'
 
 export default function Page() {
 
@@ -82,7 +83,9 @@ export default function Page() {
 				onConfirm={handleDelete}
 			/>
 			<Row style={{ alignItems: 'center', maxWidth: 'var(--page-max-width)', margin: '0 auto' }}>
-				<h5> Last edited by {lastEditor.name}</h5>
+				<P loading={loading}>
+					Last edited by {lastEditor.name}
+				</P>
 				<Filler />
 				<Button
 					outline

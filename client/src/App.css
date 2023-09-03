@@ -63,14 +63,14 @@ a {
 }
 
 .loader {
-  animation: loading-animation 500ms linear infinite alternate;
+    animation: loading-animation 500ms linear infinite alternate;
 }
 
 @keyframes loading-animation {
   0% {
-    background-color:  var(--white);
+    background-color: #eeeeea;
   }
   100% {
-    background-color: var(--border);
+    background-color: #e1e0de;
   }
 }
