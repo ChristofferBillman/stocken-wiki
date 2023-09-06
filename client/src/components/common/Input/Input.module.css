@@ -8,12 +8,13 @@
     border-radius: 12px;
     border: solid 1.5px var(--border);
     background: var(--white);
+    color: var(--black);
     transition: 300ms;
 }
 
 .input:hover {
     border: solid 1.5px;
-    border-color: rgba(0, 0, 0, 0.15);
+    border-color: var(--borderHover);
     transition: 50ms ease-in;
 }
 .input:focus {

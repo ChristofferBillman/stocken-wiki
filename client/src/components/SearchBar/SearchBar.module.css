@@ -14,7 +14,7 @@
     position: absolute;
     width: 500px;
     height: auto;
-    background: rgb(255, 255, 255);
+    background: var(--white);
     margin-top: 50px;
     border-radius: 12px;
     z-index: 100;
@@ -27,7 +27,7 @@
 }
 
 #searchResult:hover{
-    background-color: rgb(240, 240, 240);
+    background-color: rgba(150, 150, 150,0.1);
 }
 
 .descriptionText {

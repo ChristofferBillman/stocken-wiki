@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
-import { Plus, Person, Arrow } from '../../assets/Icons'
+import { Plus, Person, Arrow, Sun, Moon } from '../../assets/Icons'
 import Button from '../common/Button'
 import { Filler, Row } from '../common/Layout'
 import useUser from '../../contexts/UserContext'
@@ -8,12 +8,16 @@ import UserAPI from '../../network/UserAPI'
 
 import useToast from '../../contexts/ToastContext'
 import SearchBar from '../SearchBar'
+import { useThemeContextSetter, useThemeContextState } from '../../contexts/ThemeContext'
 
 export function Navbar() {
 
 	const navigate = useNavigate()
 	const { reset } = useUser()
 	const toast = useToast()
+
+	const setTheme = useThemeContextSetter()
+	const theme = useThemeContextState()
 
 	const handleSignout = () => {
 		UserAPI.logout(
@@ -45,7 +49,17 @@ export function Navbar() {
 					icon={<Plus/>}
 					onClick={() => navigate('/page/create')}
 				/>
-				<Button outline icon={<Person color="var(--gray)"/>}/>
+				<Button
+					outline
+					onClick={() => {
+						setTheme(theme.name == 'dark' ? 'light' : 'dark')
+						console.log(theme.name)
+					}}
+					icon={theme.name == 'dark' ?
+						<Sun color='var(--gray)'/> :
+						<Moon color='var(--gray)'/>
+					}
+				/>
 				<Button
 					outline
 					text='Sign out'
