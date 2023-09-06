@@ -2,6 +2,7 @@ import style from './PageContentSection.module.css'
 
 import InfoSection, { InfoSectionStatistic } from '../../types/InfoSection'
 import {Column, Row} from '../common/Layout'
+import Image from '../common/Image'
 
 interface Props {
 	infoSection: InfoSection
@@ -26,7 +27,7 @@ function Statistic({stat}: StatisticProps) {
 		<>
 			<Column style={{padding: '0'}}>
 				<h4> {stat.key} </h4>
-				<img src={stat.value} alt='img'/>
+				<Image src={stat.value} alt='img'/>
 			</Column>
 			<div className={style.divider}></div>
 		</>
