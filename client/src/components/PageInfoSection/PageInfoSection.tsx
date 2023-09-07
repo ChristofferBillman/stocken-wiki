@@ -3,6 +3,7 @@ import style from './PageContentSection.module.css'
 import InfoSection, { InfoSectionStatistic } from '../../types/InfoSection'
 import {Column, Row} from '../common/Layout'
 import Image from '../common/Image'
+import Divider from '../common/Divider'
 
 interface Props {
 	infoSection: InfoSection
@@ -41,7 +42,7 @@ function Statistic({stat}: StatisticProps) {
 				<h4> {stat.key} </h4>
 				<h4> {stat.value} </h4>
 			</Row>
-			<div className={style.divider}></div>
+			<Divider/>
 		</>
 	)
 }
