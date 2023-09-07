@@ -24,7 +24,7 @@ export default function Signup() {
 				setUser(user)
 				navigate('/')
 			},
-			err => toast(err, 'error') )
+			err => toast(err, 'error'))
 	}
 
 	return (

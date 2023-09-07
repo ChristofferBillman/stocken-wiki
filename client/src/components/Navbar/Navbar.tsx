@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
-import { Plus, Person, Arrow, Sun, Moon } from '../../assets/Icons'
+import { Plus, Arrow, Sun, Moon } from '../../assets/Icons'
 import Button from '../common/Button'
 import { Filler, Row } from '../common/Layout'
 import useUser from '../../contexts/UserContext'
@@ -53,7 +53,6 @@ export function Navbar() {
 					outline
 					onClick={() => {
 						setTheme(theme.name == 'dark' ? 'light' : 'dark')
-						console.log(theme.name)
 					}}
 					icon={theme.name == 'dark' ?
 						<Sun color='var(--gray)'/> :
