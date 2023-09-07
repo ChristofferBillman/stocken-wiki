@@ -1,5 +1,5 @@
 // External dependencies
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // Internal dependencies
 import { Column, Row } from '../components/common/Layout'
@@ -38,6 +38,7 @@ export default function Settings() {
 
 			<Card style={{ margin: '0 auto', width: 'var(--page-max-width)', minHeight: '100vh' }}>
 				<Column>
+					<h2 style={{paddingLeft: '1rem'}}> User</h2>
 					<Row style={{alignItems: 'center', justifyContent: 'space-between'}}>
 						<Column style={{padding: 0, gap: '0.25rem'}}>
 							<h4>Username</h4>
@@ -48,7 +49,7 @@ export default function Settings() {
 							<Button
 								outline
 								icon={<Pencil color='var(--black)'/>}
-								onClick={() => toast('This feature is not yet implemented.', 'warn')}
+								onClick={() => navigate('/settings/changeUsername')}
 							/>
 						</Row>
 					</Row>
@@ -76,6 +77,7 @@ export default function Settings() {
 					</Row>
 
 					<Divider style={{margin: '0 1rem 0 1rem'}}/>
+					<h2 style={{paddingLeft: '1rem'}}> Customization</h2>
 
 					<Row style={{alignItems: 'center', justifyContent: 'space-between'}}>
 						<Column style={{padding: 0, gap: '0.25rem'}}>

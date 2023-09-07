@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Input from '../components/common/Input'
 import Card from '../components/common/Card'
-import { Row } from '../components/common/Layout'
+import { Column, Row } from '../components/common/Layout'
 import Button from '../components/common/Button'
 import UserAPI from '../network/UserAPI'
 import useToast from '../contexts/ToastContext.tsx'
 
-export default function Signup() {
+export default function ChangePassword() {
 
 	const [password1, setPassword1] = useState('')
 	const [password2, setPassword2] = useState('')
@@ -30,31 +30,31 @@ export default function Signup() {
 
 	return (
 		<Row className='fillAvailable' style={{ alignItems: 'center', justifyContent: 'center' }}>
-			<Card style={{ width: '300px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+			<Column style={{padding: 0}}>
 				<h1>Change Password</h1>
+				<Card style={{ width: '300px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+					<Input
+						placeholder='New password'
+						name='name'
+						type='password'
+						value={password1}
+						setValue={e => setPassword1(e.target.value)}
+					/>
+					<Input
+						placeholder='Confirm new password'
+						name='password'
+						type='password'
+						value={password2}
+						setValue={e => setPassword2(e.target.value)}
+					/>
 
-				<Input
-					placeholder='New password'
-					name='name'
-					value={password1}
-					setValue={e => setPassword1(e.target.value)}
-				/>
-				<Input
-					placeholder='Confirm new password'
-					name='password'
-					type='password'
-					value={password2}
-					setValue={e => setPassword2(e.target.value)}
-				/>
-
-				<Row style={{ alignItems: 'center', justifyContent: 'space-between' }}>
 					<Button
 						text='Change Password'
 						color='var(--primary)'
 						onClick={onSubmit}
 					/>
-				</Row>
-			</Card>
+				</Card>
+			</Column>
 		</Row>
 	)
 }

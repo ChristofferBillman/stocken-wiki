@@ -21,6 +21,7 @@ import PageHistory from './pages/PageHistory'
 import { ThemeContextProvider } from './contexts/ThemeContext.tsx'
 import Settings from './pages/Settings.tsx'
 import ChangePassword from './pages/ChangePassword.tsx'
+import ChangeUsername from './pages/ChangeUsername.tsx'
 
 export default function App() {
 	return (
@@ -31,9 +32,10 @@ export default function App() {
 						<Routes>
 							<Route element={<Navbar/>}>
 								<Route path='/' element={<Home/>}/>
-								
+
 								<Route path='/settings' element={<Settings />}/>
 								<Route path='settings/changePassword' element={<ChangePassword/>}/>
+								<Route path='settings/changeUsername' element={<ChangeUsername/>}/>
 
 								<Route path='/page/:id' element={<Page/>}/>
 								<Route path='/page/edit/:id' element={<PageEditor/>}/>

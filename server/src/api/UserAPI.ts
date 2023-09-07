@@ -48,7 +48,20 @@ export default function UserAPI(app: Application, BASEURL: string) {
     app.put(BASEURL + '/', async (req, res) => {
         try {
             const id = req.userId
-            const { name } = req.body
+            const { name } = req.body.user
+
+            if(!hasNoWhitespace(name)) {
+                res.status(400).send('Username cannot contain whitespace or be empty.')
+                return
+            }
+
+            const existingUser = await User.findOne({ name })
+    
+            if(existingUser !== null) {
+                res.status(409)
+                res.send('Username is taken.')
+                return
+            }
 
             const updatedUser: IUser | null = await User.findByIdAndUpdate(
                 id,
@@ -73,6 +86,11 @@ export default function UserAPI(app: Application, BASEURL: string) {
         try {
             const id = req.userId
             const { password } = req.body
+
+            if(!hasNoWhitespace(password)) {
+                res.status(400).send('Password cannot contain blankspace or be empty.')
+                return
+            }
             
             const hash = await PassHash.toHash(password)
 
@@ -94,4 +112,8 @@ export default function UserAPI(app: Application, BASEURL: string) {
             res.status(500).send('An error occurred')
         }
     })
+}
+
+function hasNoWhitespace(cleartextPassword: string) {
+    return cleartextPassword.indexOf(' ') === -1 && cleartextPassword !== ''
 }

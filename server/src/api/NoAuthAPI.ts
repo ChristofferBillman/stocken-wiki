@@ -55,6 +55,16 @@ export default function NoAuthAPI(app: Application, BASEURL: string) {
             res.send()
             return
         }
+
+        if(!hasNoWhitespace(password)) {
+            res.status(400).send('Password cannot contain blankspace or be empty.')
+            return
+        }
+
+        if(!hasNoWhitespace(name)) {
+            res.status(400).send('Username cannot contain whitespace or be empty.')
+            return
+        }
     
         const existingUser = await User.findOne({ name })
     
@@ -72,4 +82,8 @@ export default function NoAuthAPI(app: Application, BASEURL: string) {
         res.cookie('token', token)
         res.status(201).json(user)
     })
+}
+
+function hasNoWhitespace(cleartextPassword: string) {
+    return cleartextPassword.indexOf(' ') === -1 && cleartextPassword !== ''
 }
