@@ -44,6 +44,7 @@ export default function Signup() {
 				<Input
 					placeholder='Password'
 					name='password'
+					type='password'
 					value={password}
 					setValue={e => setPassword(e.target.value)}
 				/>

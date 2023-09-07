@@ -7,17 +7,18 @@ interface Props {
 	value: string
 	setValue: (arg0: React.ChangeEvent<HTMLInputElement>) => void
 	name: string
+	type?: string
 	onFocus?: () => void
 	onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
-	tabIndex?: number
 }
 
-export function Input({placeholder, value, setValue, name, style, onFocus, onBlur}: Props) {
+export function Input({placeholder, value, setValue, name, type, style, onFocus, onBlur}: Props) {
 	return (
 		<input
 			onFocus={onFocus}
 			onBlur={onBlur}
 			style={style}
+			type={type}
 			className={CSSstyle.input}
 			placeholder={placeholder}
 			value={value}
