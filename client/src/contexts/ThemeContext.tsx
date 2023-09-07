@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
 interface Theme {
 	name: string
 	primary: string
@@ -47,13 +48,12 @@ export const useThemeContextSetter = () => {
 
 export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 	const [theme, setThemeInternal] = useState<Theme>(lightTheme)
+	const [lcstgTheme, setLcstrTheme] = useLocalStorage('theme', 'light')
 
-	/*const setDarkTheme = (dark: boolean): void => {
-		dark ? setTheme(darkTheme) : setTheme(lightTheme)
-	}*/
-
-	// This logic is not completed. Not working.
 	const setTheme = (option: 'dark' | 'light') => {
+
+		setLcstrTheme(option)
+
 		switch (option) {
 		case 'dark': setThemeInternal(darkTheme)
 			break
@@ -61,6 +61,8 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 			break
 		}
 	}
+
+	useEffect(() => { setTheme(lcstgTheme) }, [])
 
 	useEffect(() => {
 		for (const [key, value] of Object.entries(theme)) {
