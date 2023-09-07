@@ -12,15 +12,15 @@
 }
 
 .success {
-    background: #EAFFE7 !important;
+    background: hsla(113, 100%, 60%, 0.2) !important;
 }
 
 .error {
-    background: #FFDEDE !important;
+    background: hsla(0, 100%, 60%, 0.2) !important
 }
 
 .warn {
-    background: #fff4de !important;
+    background: hsla(40, 100%, 60%, 0.2) !important;
 }
 
 .info {
