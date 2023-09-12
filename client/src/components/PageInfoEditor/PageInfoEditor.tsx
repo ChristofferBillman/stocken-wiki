@@ -89,7 +89,7 @@ function EmptyState() {
 	// Lmao I can't with these hard-coded values. xddd.
 	return (
 		<h5
-			style={{width: 375 + 'px', textAlign: 'center'}}
+			style={{ textAlign: 'center' }}
 		>
 			An info box contains statistics and quick info about the thing being written about.
 		</h5>
@@ -131,7 +131,7 @@ function StatisticEditor({ stat, name, dispatch, index }: StatisticProps) {
 						placeholder='Title'
 						value={key}
 						setValue={e => setKey(e.target.value)}
-						style={{width: '100px'}}
+						style={{ width: '100%'}}
 						onBlur={e => dispatch({type: PageReducerType.SET_STATISTIC, payload: e})}
 					/>
 					<Input
@@ -139,7 +139,7 @@ function StatisticEditor({ stat, name, dispatch, index }: StatisticProps) {
 						placeholder={stat.type === 'image' ? 'Image Link' : 'Value'}
 						value={value}
 						setValue={e => setValue(e.target.value)}
-						style={{width: '150px'}}
+						style={{ width: '100%'}}
 						onBlur={e => dispatch({type: PageReducerType.SET_STATISTIC, payload: e})}
 					/>
 					<Button

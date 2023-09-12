@@ -1,4 +1,4 @@
-#searchTint{
+#searchTint {
     position: absolute;
     top: 0;
     left: 0;
@@ -9,10 +9,11 @@
     cursor: pointer;
 }
 
-#searchResults{
+#searchResults {
     display: block;
     position: absolute;
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
     height: auto;
     background: var(--white);
     margin-top: 50px;
@@ -21,12 +22,13 @@
     overflow: hidden;
 }
 
-#searchContainer{
+#searchContainer {
     position: relative;
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
 }
 
-#searchResult:hover{
+#searchResult:hover {
     background-color: rgba(150, 150, 150,0.1);
 }
 
@@ -36,4 +38,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 950px) {
+    #searchContainer {
+      padding: 0;
+    }
 }

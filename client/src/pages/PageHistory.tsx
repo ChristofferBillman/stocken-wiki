@@ -42,11 +42,10 @@ export default function PageHistory() {
 	const title = history[history.length - 1].page.content.split('\n')[0].replace('#','')
 
 	return (
-		<>
-			<Row style={{ alignItems: 'center', maxWidth: 'var(--page-max-width)', margin: '0 auto' }}>
-				<h5> Version History of {title} </h5>
-				<Filler />
-
+		<div style={{ margin: '0 auto', maxWidth: 'var(--page-max-width)' }}>
+			<h5> Version History of {title} </h5>
+			<Row style={{ alignItems: 'center', padding: '1rem 0 1rem 0' }}>
+				<Filler/>
 				<Button
 					outline
 					text='Back to Page'
@@ -61,7 +60,7 @@ export default function PageHistory() {
 					</Column>
 				</Row>
 			</Card>
-		</>
+		</div>
 	)
 }
 interface EditListItemProps {
@@ -79,7 +78,7 @@ function PageRecordListItem({record}: EditListItemProps): JSX.Element {
 	})
 
 	return (
-		<Row style={{alignItems: 'center', padding: 0}}>
+		<Row style={{alignItems: 'center', padding: 0, flexWrap: 'wrap'}}>
 			<h4>{user}</h4>
 			<p style={{margin: 0}}>{getTimeSince(record.time)}</p>
 			<Button

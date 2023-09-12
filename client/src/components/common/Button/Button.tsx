@@ -8,9 +8,10 @@ interface Props {
 	textColor?: string
 	onClick?: () => void
 	loading?: boolean
+	className?: string
 }
 
-export function Button({ icon, text, textColor, color = 'var(--white)', outline = false, onClick, loading }: Props) {
+export function Button({ icon, text, textColor, color = 'var(--white)', outline = false, onClick, loading, className }: Props) {
 
 	const outlineStyle = outline ? style.outline : ''
 
@@ -26,7 +27,7 @@ export function Button({ icon, text, textColor, color = 'var(--white)', outline 
 
 	return (
 		<button
-			className={`${style.btn} ${outlineStyle}`}
+			className={`${style.btn} ${outlineStyle} ${className}`}
 			style={{ background: color }}
 			onClick={onClick}
 		>

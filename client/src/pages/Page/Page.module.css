@@ -1,0 +1,17 @@
+.pageContainer {
+    height: 100%;
+    gap: 4rem;
+    padding: 2rem;
+}
+.buttonsRow {
+    flex-wrap: wrap;
+    padding: 1rem 0 1rem 0;
+    justify-content: flex-end;
+}
+
+@media screen and (max-width: 950px) {
+    .pageContainer {
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+}

@@ -1,6 +1,7 @@
 * {
     font-family: 'Inter';
 }
+
 :root {
     --primary: #3B97D9;
     --border: #E8E8E8;
@@ -10,11 +11,15 @@
     --cream: #f8f8f5;
     --black: #313131;
     --red: #C43F3F;
-    --page-max-width: 886px;
+    --page-max-width: calc(950px - 4rem);
 }
+
 body {
     background: var(--cream);
+    margin: 2rem;
+    padding: 0;
 }
+
 h1 {
     font-weight: 300;
     font-size: 2rem;
@@ -74,4 +79,13 @@ a {
   100% {
     background-color: rgba(150,150,150,0.2);
   }
+}
+
+@media screen and (max-width: 950px) {
+    :root {
+        --page-max-width: 100%;
+    }
+    body {
+        margin: 1rem;
+    }
 }

@@ -9,9 +9,9 @@ import Navbar from './components/Navbar'
 
 // Pages
 import Home from './pages/Home'
-import Page from './pages/Page'
-import PageEditor from './pages/PageEditor'
-import PageCreator from './pages/PageCreator'
+import Page from './pages/Page/Page.tsx'
+import PageEditor from './pages/PageEditor/PageEditor.tsx'
+import PageCreator from './pages/PageCreator/PageCreator.tsx'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import HistoricalPage from './pages/HistoricalPage.tsx'

@@ -61,7 +61,6 @@ export default function Settings() {
 						</Column>
 						<Button
 							outline
-							text='Change Password'
 							icon={<Pencil color='var(--black)'/>}
 							onClick={() => navigate('/settings/changePassword')}
 						/>
