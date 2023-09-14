@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 
 // Internal dependencies
-import { Column, Filler, Row } from '../../components/common/Layout'
+import { Column, Row } from '../../components/common/Layout'
 import { Pencil, Trash, History } from '../../assets/Icons'
 import Button from '../../components/common/Button'
 import Card from '../../components/common/Card'
