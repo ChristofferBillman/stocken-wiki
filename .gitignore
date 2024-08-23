@@ -1,2 +1,5 @@
 node_modules
 server/dist
+greenlock.d
+.greenlockrc
+dist
