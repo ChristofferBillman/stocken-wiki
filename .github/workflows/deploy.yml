@@ -12,19 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Debug HOST
-        run: echo "HOST is ${HOST}"
+        run: echo "HOST is ${AWS_HOST}"
         env:
-          HOST: ${{ secrets.AWS_INSTANCE }}
+          AWS_HOST: ${{ secrets.AWS_INSTANCE }}
       - name: Debug USER
-        run: echo "USER is ${USER}"
+        run: echo "USER is ${AWS_USER}"
         env:
-            HOST: ${{ secrets.AWS_USERNAME }}
+            AWS_USER: ${{ secrets.AWS_USERNAME }}
       - name: Deploying application to EC2 instance
         env:
-          KEY: ${{ secrets.AWS_KEY }}
-          HOST: ${{ secrets.AWS_INSTANCE }}
-          USERNAME: ${{ secrets.AWS_USERNAME }}
+          PRIVATE_KEY: ${{ secrets.AWS_KEY }}
+          AWS_HOST: ${{ secrets.AWS_INSTANCE }}
+          AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
 
         run: |
-          echo "$KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOST} bash deploy.sh
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${AWS_USERNAME}@${AWS_HOST} bash deploy.sh
