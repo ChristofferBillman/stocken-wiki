@@ -20,4 +20,4 @@ jobs:
 
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${AWS_USERNAME}@${AWS_HOST} bash deploy.sh
+          ssh -o StrictHostKeyChecking=no -i private_key ${AWS_USERNAME}@${AWS_HOST} bash ./stocken-wiki/deploy.sh
