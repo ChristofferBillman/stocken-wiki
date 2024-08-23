@@ -10,7 +10,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        
       - uses: actions/checkout@v3
+      - name: Configure AWS Security Group to allow GitHub Runners.
+        env:
+            AWS_REGION: eu-north-1b
+            SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
+            PRIVATE_KEY: ${{ secrets.AWS_KEY }}
+            AWS_HOST: ${{ secrets.EC2_INSTANCE }}
+            AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
+        run: |
+            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+
+            # This is written by chatGPT.
+            # Download the GitHub Actions IP ranges JSON
+            curl -o actions_ip_ranges.json https://api.github.com/meta
+
+            # Extract the IP ranges
+            RUNNER_IP_RANGES=$(jq -r '.actions[]' < actions_ip_ranges.json)
+
+            # Authorize the IP ranges to access your EC2 instance
+            for IP_RANGE in $RUNNER_IP_RANGES; do
+            aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr $IP_RANGE
+            done
+
+            # SSH into your EC2 instance
+            ssh -i private_key -o StrictHostKeyChecking=no ${AWS_USERNAME}@${AWS_HOST}
+
+            for IP_RANGE in $RUNNER_IP_RANGES; do
+            aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr $IP_RANGE
+            done
       - name: Deploying application to EC2 instance
         env:
           PRIVATE_KEY: ${{ secrets.AWS_KEY }}
