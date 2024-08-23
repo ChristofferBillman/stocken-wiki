@@ -1,6 +1,5 @@
 #!/bin/bash
 echo "Begin deployment"
-cd /stocken-wiki
 git pull origin master
 
 echo "Stop server"
