@@ -11,6 +11,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Debug HOST
+        run: echo "HOST is ${HOST}"
+        env:
+          HOST: ${{ secrets.AWS_INSTANCE }}
+      - name: Debug USER
+        run: echo "USER is ${USER}"
+        env:
+            HOST: ${{ secrets.AWS_USERNAME }}
       - name: Deploying application to EC2 instance
         env:
           KEY: ${{ secrets.AWS_KEY }}
@@ -19,5 +27,4 @@ jobs:
 
         run: |
           echo "$KEY" > private_key && chmod 600 private_key
-          echo ${USERNAME}@${HOST}
           ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOST} bash deploy.sh
