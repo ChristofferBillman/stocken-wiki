@@ -14,7 +14,7 @@ jobs:
       - name: Debug HOST
         run: echo "HOST is ${AWS_HOST}"
         env:
-          AWS_HOST: ${{ secrets.AWS_INSTANCE }}
+          AWS_HOST: ${{ secrets.EC2_INSTANCE }}
       - name: Debug USER
         run: echo "USER is ${AWS_USER}"
         env:
@@ -22,7 +22,7 @@ jobs:
       - name: Deploying application to EC2 instance
         env:
           PRIVATE_KEY: ${{ secrets.AWS_KEY }}
-          AWS_HOST: ${{ secrets.AWS_INSTANCE }}
+          AWS_HOST: ${{ secrets.EC2_INSTANCE }}
           AWS_USERNAME: ${{ secrets.AWS_USERNAME }}
 
         run: |
