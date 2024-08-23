@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_WIKI_BACKEND_URL
+const BASE_URL = '/api'
 
 enum Method {
 	GET = 'GET',
@@ -49,7 +49,6 @@ async function request<T>(
 	fetch(BASE_URL + url, {
 		method,
 		credentials: 'include',
-		mode: 'cors',
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -82,7 +81,6 @@ async function internalGet<T>(
 	fetch(BASE_URL + url, {
 		method,
 		credentials: 'include',
-		mode: 'cors',
 		headers: {
 			'Content-Type': 'application/json',
 		}

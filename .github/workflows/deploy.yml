@@ -1,0 +1,22 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploying to AWS
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploying application to EC2 instance
+        env:
+          KEY: ${{ secrets.AWS_KEY  }}
+          HOST: ${{ secrets.AWS_INSTANCE  }}
+          USERNAME: ${{ secrets.AWS_USERNAME  }}
+
+        run: |
+          echo "$KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOST} bash deploy.sh
