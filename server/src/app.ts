@@ -1,6 +1,6 @@
 import GetDatabaseConnection from './Database'
-import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import path from 'path'
 
 import express, { Request, Response, Application } from 'express'
 import Token from './Token'
@@ -10,23 +10,18 @@ import PageAPI from './api/PageAPI'
 import PageHistoryAPI from './api/PageHistoryAPI'
 import SearchAPI from './api/SearchAPI'
 
+
 GetDatabaseConnection()
 
 const app: Application = express()
 const port = process.env.PORT || 3000
 const BASEURL = '/api'
 
+app.use(express.static(path.join(__dirname, '..', '..', 'client', 'dist')))
+app.use(express.static("public"))
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors({
-    origin: [
-        'http://wiki.christofferbillman.se',
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000"
-    ],
-    credentials: true
-}))
 
 app.listen(port, () => console.log(`Wiki server is running on port ${port}`))
 
@@ -46,5 +41,9 @@ PageAPI(app, BASEURL + '/page')
 PageHistoryAPI(app, BASEURL + '/page/history')
 SearchAPI(app, BASEURL)
 
-export default app;
+app.get('*', (_, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'dist', 'index.html'))
+})
+
+export default app
 
