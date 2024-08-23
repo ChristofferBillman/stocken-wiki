@@ -6,6 +6,7 @@ import { Routes, Route, HashRouter } from 'react-router-dom'
 
 // Components
 import Navbar from './components/Navbar'
+import ScrollToTop from './components/common/ScrollTopTop'
 
 // Pages
 import Home from './pages/Home'
@@ -29,6 +30,7 @@ export default function App() {
 			<UserContextProvider>
 				<ThemeContextProvider>
 					<ToastContextProvider>
+						<ScrollToTop />
 						<Routes>
 							<Route element={<Navbar/>}>
 								<Route path='/' element={<Home/>}/>
