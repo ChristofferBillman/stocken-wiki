@@ -19,4 +19,5 @@ jobs:
 
         run: |
           echo "$KEY" > private_key && chmod 600 private_key
+          echo ${USERNAME}@${HOST}
           ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOST} bash deploy.sh
