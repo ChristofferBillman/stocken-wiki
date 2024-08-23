@@ -18,6 +18,9 @@ echo "Build backend"
 cd /server
 npm run build
 
+echo "Change .env to use production database"
+echo "MONGO_CONNSTRING = mongodb://127.0.0.1:27017/stocken-wiki-prod" > .env
+
 echo "Run server"
 npm run prod:start
 
