@@ -10,7 +10,6 @@ import PageAPI from './api/PageAPI'
 import PageHistoryAPI from './api/PageHistoryAPI'
 import SearchAPI from './api/SearchAPI'
 
-
 GetDatabaseConnection()
 
 const app: Application = express()

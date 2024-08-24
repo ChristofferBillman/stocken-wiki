@@ -33,7 +33,7 @@ export default function Login() {
 			<Card style={{ width: '300px', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 				<div>
 					<h1 style={{ margin: 0 }}>stocken.wiki</h1>
-					<h2>Log in</h2>
+					<h2>Sign in</h2>
 				</div>
 				<Input
 					placeholder='Name'
